@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/luisnunes/Documents/Griaule/RetinaC++/build",
+  "command": "/bin/g++-9  -I/home/luisnunes/Documents/Griaule/RetinaC++/include -isystem /opt/intel/openvino_2021.4.689/opencv/include -g -o CMakeFiles/RetinaCpp.dir/main.cpp.o -c /home/luisnunes/Documents/Griaule/RetinaC++/main.cpp",
+  "file": "/home/luisnunes/Documents/Griaule/RetinaC++/main.cpp"
+},
+{
+  "directory": "/home/luisnunes/Documents/Griaule/RetinaC++/build",
+  "command": "/bin/g++-9  -I/home/luisnunes/Documents/Griaule/RetinaC++/include -isystem /opt/intel/openvino_2021.4.689/opencv/include -g -o CMakeFiles/RetinaCpp.dir/src/ImageProcessing.cpp.o -c /home/luisnunes/Documents/Griaule/RetinaC++/src/ImageProcessing.cpp",
+  "file": "/home/luisnunes/Documents/Griaule/RetinaC++/src/ImageProcessing.cpp"
+},
+{
+  "directory": "/home/luisnunes/Documents/Griaule/RetinaC++/build",
+  "command": "/bin/g++-9  -I/home/luisnunes/Documents/Griaule/RetinaC++/include -isystem /opt/intel/openvino_2021.4.689/opencv/include -g -o CMakeFiles/RetinaCpp.dir/src/RetinaModel.cpp.o -c /home/luisnunes/Documents/Griaule/RetinaC++/src/RetinaModel.cpp",
+  "file": "/home/luisnunes/Documents/Griaule/RetinaC++/src/RetinaModel.cpp"
+}
+]
