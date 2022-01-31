@@ -58,9 +58,31 @@ void inputPreProcessing(cv::Mat &im, float &det_scale, bool reshape, int img_siz
 
 }
 
-void outputPostProcessing(std::vector<Grid<float>>tensors, Config_Data cfg, cv::Size image_size, float conf_th, int top_k, int keep_top_k){
-    Grid<float> anchors = anchors_grid<float>(cfg, image_size);
-    std::cout << anchors << std::endl;
+
+template<typename T> static Grid<T> decode(Grid<T> data, Grid<T> anchors, Config_Data cfg){
+    Grid<T> result;
+    try{
+        Grid<T> boxes = GridFunc::concatenateGrids(anchors.getSubset(0, 2)+data.getSubset(0, 2)*cfg.variance[0],anchors.getReverseSubset(0, 2) * data.getReverseSubset(0,2).getExponential(cfg.variance[1]));
+        Grid<T> sub_set_x = boxes.getSubset(0, 2);
+        sub_set_x -= (boxes.getReverseSubset(0,2)*0.5);
+        Grid<T> sub_set_y = boxes.getReverseSubset(0, 2) + sub_set_x;
+    
+        result = GridFunc::concatenateGrids(sub_set_x, sub_set_y);
+    } catch(const char *msg){
+        std::cout << msg << std::endl;
+    }
+
+    return result;
+}
+
+template<typename T> static Grid<T> decode_landmarks(Grid<T> land, Grid<T> anchors, Config_Data cfg){
+    Grid<T> result;
+    try{
+
+    } catch (const char *msg){
+        std::cout << msg << std::endl;
+    }
+    return result;
 }
 
 template<typename T> Grid<T> anchors_grid(Config_Data cfg, cv::Size image_size){
@@ -98,6 +120,21 @@ template<typename T> Grid<T> anchors_grid(Config_Data cfg, cv::Size image_size){
     return final_grid;
 }
 
-template<typename T> static std::vector<Grid<T>> decode(Grid<T> data, Grid<T> anchors, Config_Data cfg){
+void outputPostProcessing(std::vector<Grid<float>>tensors, Config_Data cfg, cv::Size image_size, float conf_th, int top_k, int keep_top_k){
+    Grid<float> anchors = anchors_grid<float>(cfg, image_size);
+    std::cout << anchors << std::endl;
 
+    Grid<float> boxes = decode(tensors[0], anchors, cfg);
+    if(image_size.height == image_size.width)
+        boxes *= image_size.height;
+    else
+        throw "Not Yet Implemented";
+
+    std::cout << boxes << std::endl;
+    std::cout << boxes(0,0) << " " << boxes(1,0) << " " << boxes(2,0) << " " << boxes(3,0) << std::endl;
+
+    Grid<float> scores = tensors[1].getSubset(0, 1);
+
+    std::cout << scores << std::endl;
+    std::cout << "Máx Score: " << scores.max() << std::endl;
 }
