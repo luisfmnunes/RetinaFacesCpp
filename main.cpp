@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
     float scale = 0.0;
     cv::Mat im;
     
-    if(argc < 0){
+    if(argc < 2){
         cerr << "Insufficient Arguments" << endl;
         return EXIT_FAILURE;
     }

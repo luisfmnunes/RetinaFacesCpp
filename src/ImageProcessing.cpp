@@ -58,6 +58,46 @@ void inputPreProcessing(cv::Mat &im, float &det_scale, bool reshape, int img_siz
 
 }
 
-void outputPostProcessing(std::vector<Ort::Value > tensors, int image_size=640, float conf_th = 0.02, int top_k=5000, int keep_top_k=750){
-    
+void outputPostProcessing(std::vector<Grid<float>>tensors, Config_Data cfg, cv::Size image_size, float conf_th, int top_k, int keep_top_k){
+    Grid<float> anchors = anchors_grid<float>(cfg, image_size);
+    std::cout << anchors << std::endl;
+}
+
+template<typename T> Grid<T> anchors_grid(Config_Data cfg, cv::Size image_size){
+    std::vector<T> anchors;
+    for(size_t i = 0; i < 3; i++){
+        std::vector<int> min_sz = cfg.min_sizes[i];
+        
+        int fy = image_size.height/cfg.steps[i];
+        int fx = image_size.width/cfg.steps[i];
+
+        for(size_t x = 0; x < fx; x++){
+            for(size_t y = 0; y < fy; y++){
+                for(size_t s = 0; s < min_sz.size(); s++){
+                    float s_kx = min_sz[s]/image_size.width;
+                    float s_ky = min_sz[s]/image_size.height;
+                    float dense_cx = (x + 0.5) * cfg.steps[i]/image_size.width;
+                    float dense_cy = (y + 0.5) * cfg.steps[i]/image_size.height;
+                    
+                    anchors.push_back(dense_cx);
+                    anchors.push_back(dense_cy);
+                    anchors.push_back(s_kx);
+                    anchors.push_back(s_ky);
+
+                }
+            }
+        }
+
+        // anchors.emplace_back(anchor_data.size()/4,4);
+        // anchors.back().setData(anchor_data.data(), anchor_data.size());
+    }
+
+    Grid<T> final_grid(anchors.size()/4, 4);
+    final_grid.setData(anchors.data(), anchors.size());
+
+    return final_grid;
+}
+
+template<typename T> static std::vector<Grid<T>> decode(Grid<T> data, Grid<T> anchors, Config_Data cfg){
+
 }

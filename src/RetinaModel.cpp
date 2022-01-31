@@ -130,12 +130,21 @@ int RetinaModel::getInference(cv::Mat &image, std::vector<Ort::Value> &output, b
     while(!output.empty())
         output.pop_back();
 
+    std::vector<Grid<float>> out_tensors;
     for(int i=0; i < output_tensor.size(); i++){
         if(!output_tensor[i].IsTensor())
             return EXIT_FAILURE;
         std::vector<int64_t> tensor_dim = output_tensor[i].GetTensorTypeAndShapeInfo().GetShape();
         std::cout << output_names[i] << ": " << tensor_dim << std::endl;
+        
+        out_tensors.emplace_back(tensor_dim[1], tensor_dim[2]);
+        float* data = output_tensor[i].GetTensorMutableData<float>();
+        size_t data_size = tensor_dim[1]*tensor_dim[2];
+        out_tensors.back().setData(data, data_size);
     }
+
+    Config_Data cfg = get_R50_config();
+    outputPostProcessing(out_tensors, cfg);
 
     return EXIT_SUCCESS;
 }
