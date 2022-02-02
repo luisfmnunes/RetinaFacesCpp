@@ -3,6 +3,18 @@
 
 #include<vector>
 
+class gridPoint{
+    public:
+        int x;
+        int y;
+
+        gridPoint();
+        gridPoint(int x, int y) : x(x), y(y){};
+
+        // removes negatives
+        void relu(){ if(x<0) x = 0; if(y<0) y =0; }
+};
+
 template<typename T>
 class Grid{
     private:
@@ -30,6 +42,7 @@ class Grid{
             memcpy(&_data[0], data, data_size * sizeof(T));
         }
 
+        // x = column, y = row:  Grid(col, row) 
         T& operator()(uint x, uint y){
             if (x >= c || y >= r){
                 std::cout << "x = " << x << " c = " << c << " y = " << y << " r = " << r << std::endl;
@@ -109,9 +122,20 @@ class Grid{
             return result;
         }
 
+        Grid<T> operator[](std::vector<int> index){
+            Grid<T> result(c, index.size());
+            for(int y = 0; y < index.size(); y++){
+                for(int x = 0; x < c; x++){
+                    result.setPos(x, y, _data[x+index[y]*c]);
+                }
+            }
+
+            return result;
+        }
+
         // grid[:xlimit, :ylimit]
         Grid<T> getSubset(uint xlimit=0, uint ylimit=0){
-            if(xlimit >= c || ylimit >= r){
+            if(xlimit > c || ylimit > r){
                 std::cout << "xlimit: " << xlimit <<  " >= c: " << c << " ou ylimit: " << ylimit << " >= r: " << r << std::endl;
                 throw "Out of range index in getSubset";
             }
@@ -141,6 +165,28 @@ class Grid{
             return result;
         }
 
+        // grid[begin.x : end.x, begin.y : end.y]
+        Grid<T> getIntervalSubset(gridPoint begin, gridPoint end){
+            begin.relu();
+            if(end.x < 0) end.x = c;
+            if(end.y < 0) end.y = r;
+
+            Grid<T> result(end.x-begin.x, end.y-begin.y);
+
+            if(begin.x >= end.x || begin.y >= end.y)
+                throw "Begin Coordinate(s) higher than end";
+            if(end.x > c || end.y > r)
+                throw "Out of range index in getIntervalSubset";
+            
+            for(uint y = begin.y; y < end.y; y++){
+                for(uint x = begin.x; x < end.x; x++){
+                    result.setPos(x-begin.x,y-begin.y,_data[y*c + x]);
+                }
+            }
+
+            return result;
+        }
+
         Grid<T> getExponential(T scale = 1){
             Grid<T> result = createFromGrid(*this);
             for(uint y = 0; y < r; y++){
@@ -150,6 +196,33 @@ class Grid{
             }
 
             return result;
+        }
+
+        //return rows that attends to condition lambda functor
+        template<typename F> std::vector<int> where(F condition_lambda, int col = -1){
+            std::vector<int> index;
+            for(int y = 0; y < r; y++){
+                for(int x = col < 0 ? 0 : col; col < 0 ? (x < c) : (x == col); x++){
+                    if(condition_lambda( _data[x+y*c])){
+                        index.push_back(y);
+                    }
+                }
+            }
+
+            return index;
+        }
+
+
+        std::string print(){
+            std::stringstream ss;
+            for(int y = 0; y < r; y++){
+                for(int x = 0; x < c; x++){
+                    ss << _data[x + y*c] << " ";
+                }
+                ss << std::endl;
+            }
+
+            return ss.str();
         }
 
         void sumUntil(Grid<T> &rhs, uint limit){
@@ -189,16 +262,32 @@ namespace GridFunc{
     template<typename T> inline Grid<T> concatenateGrids(Grid<T> lgd, Grid<T> rgd){
         if(lgd.rows() != rgd.rows())
             throw "Cannot Concatenate Grids of different height";
-        Grid<T> result(lgd.cols(),lgd.rows()+rgd.rows());
+        Grid<T> result(lgd.cols() + rgd.cols(),lgd.rows());
         
         for (uint y = 0; y < result.rows(); y++){
             for(uint x = 0; x < result.cols(); x++){
-                T value = y < lgd.rows() ? lgd(x,y) : rgd(x,y-lgd.rows()); 
+                T value = x < lgd.cols() ? lgd(x,y) : rgd(x-lgd.cols(),y); 
                 result.setPos(x,y,value);
             }
         }
 
         return result;
+    }
+
+    template<typename T> inline Grid<T> concatenateNGrids(std::vector<Grid<T>> list){
+        Grid<T> result(list.front().cols(), list.front().rows());
+        for(int i = 1; i < list.size(); i++){
+            try{
+                result = concatenateGrids(result, list[i]);
+            } catch (const char* msg){
+                std::cout << msg << " -> Concatenation Failed at index " << i << std::endl;
+                std::cout << "lhs: " << result << " rhs: " << list[i] << std::endl;
+                return Grid<T>();
+            }
+        }
+
+        return result;
+        
     }
 }
 

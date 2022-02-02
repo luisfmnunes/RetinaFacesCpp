@@ -19,11 +19,11 @@ int main(int argc, char** argv) {
     image_path = argv[1];
     im = cv::imread(image_path);
 
-    cv::imshow("Read Image", im);
-    inputPreProcessing(im, scale);
+    // cv::imshow("Read Image", im);
+    // inputPreProcessing(im, scale);
 
-    cv::imshow("PreProcessing", im);
-    cv::waitKey(0);
+    // cv::imshow("PreProcessing", im);
+    // cv::waitKey(0);
 
     model.init();
 

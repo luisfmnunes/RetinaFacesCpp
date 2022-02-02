@@ -92,7 +92,7 @@ void RetinaModel::setOptions(GraphOptimizationLevel opt_level, int threads){
     this->options.SetIntraOpNumThreads(threads); 
 }
 
-int RetinaModel::getInference(cv::Mat &image, std::vector<Ort::Value> &output, bool resize, size_t img_size){
+int RetinaModel::getInference(cv::Mat &image, std::vector<Grid<float>> &output, bool resize, size_t img_size){
     float det_scale = 0.0f;
     cv::Mat input(image);
     Ort::AllocatorWithDefaultOptions allocator;
@@ -105,6 +105,8 @@ int RetinaModel::getInference(cv::Mat &image, std::vector<Ort::Value> &output, b
     dims[2] = input.rows;
     dims[3] = input.cols;
 
+    std::cout << dims << std::endl;
+
     std::vector<const char*> input_nm(this->input_count);
     for(int i = 0; i < this->input_count; i++)
         input_nm[i] = this->session->GetInputName(i, allocator);
@@ -112,8 +114,9 @@ int RetinaModel::getInference(cv::Mat &image, std::vector<Ort::Value> &output, b
     size_t data_size = 1.0f;
     for (auto dim : dims) data_size *= dim;
 
+    // same as reinterpreted_cast<const float*>
     std::vector<float> input_data(data_size);
-    input_data.assign((float*)input.datastart, (float*)input.dataend);
+    input_data.assign((float*)input.datastart, (float*)input.dataend); 
 
     std::cout << "Creating Input Tensor" << std::endl;
     Ort::Value input_tensor = Ort::Value::CreateTensor<float>(memory_info, input_data.data(), input_data.size(), dims.data(), dims.size());
@@ -137,7 +140,7 @@ int RetinaModel::getInference(cv::Mat &image, std::vector<Ort::Value> &output, b
         std::vector<int64_t> tensor_dim = output_tensor[i].GetTensorTypeAndShapeInfo().GetShape();
         std::cout << output_names[i] << ": " << tensor_dim << std::endl;
         
-        out_tensors.emplace_back(tensor_dim[1], tensor_dim[2]);
+        out_tensors.emplace_back(tensor_dim[2], tensor_dim[1]);
         float* data = output_tensor[i].GetTensorMutableData<float>();
         size_t data_size = tensor_dim[1]*tensor_dim[2];
         out_tensors.back().setData(data, data_size);
