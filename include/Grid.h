@@ -2,6 +2,8 @@
 #define GRID_H
 
 #include<vector>
+#include<numeric>
+#include<algorithm>
 
 class gridPoint{
     public:
@@ -85,6 +87,17 @@ class Grid{
             return *this;
         }
 
+        Grid<T> operator+(const T &scalar){
+            Grid<T> result = createFromGrid(*this);
+            for(uint y = 0; y < r; y++){
+                for(uint x = 0; x < c; x++){
+                    result.setPos(x,y,_data[y*c+x]+scalar); 
+                }
+            }
+
+            return result;
+        }
+
         Grid<T> operator+(Grid<T> rhs){
             Grid<T> result = createFromGrid(*this);
             if(c!=rhs.cols() || r!=rhs.rows())
@@ -92,6 +105,30 @@ class Grid{
             for(uint y = 0; y < r; y++){
                 for(uint x = 0; x < c; x++){
                     result.setPos(x,y,_data[y*c+x]+rhs(x,y));
+                }
+            }
+
+            return result;
+        }
+
+        Grid<T> operator-(const T &scalar){
+            Grid<T> result = createFromGrid(*this);
+            for(uint y = 0; y < r; y++){
+                for(uint x = 0; x < c; x++){
+                    result.setPos(x,y,_data[y*c+x]-scalar); 
+                }
+            }
+
+            return result;
+        }
+
+        Grid<T> operator-(Grid<T> rhs){
+            Grid<T> result = createFromGrid(*this);
+            if(c!=rhs.cols() || r!=rhs.rows())
+                throw "Different Sized Grids";
+            for(uint y = 0; y < r; y++){
+                for(uint x = 0; x < c; x++){
+                    result.setPos(x,y,_data[y*c+x]-rhs(x,y));
                 }
             }
 
@@ -116,6 +153,30 @@ class Grid{
             for(uint y = 0; y < r; y++){
                 for(uint x = 0; x < c; x++){
                     result.setPos(x,y,_data[y*c+x]*rhs(x,y)); 
+                }
+            }
+
+            return result;
+        }
+
+        Grid<T> operator/(const T &scalar){
+            Grid<T> result = createFromGrid(*this);
+            for(uint y = 0; y < r; y++){
+                for(uint x = 0; x < c; x++){
+                    result.setPos(x,y,_data[y*c+x]/scalar); 
+                }
+            }
+
+            return result;
+        }
+
+        Grid<T> operator/(Grid<T> rhs){
+            if(rhs.cols()!= c || rhs.rows() != r)
+                throw "Different Sized Grids";
+            Grid<T> result = createFromGrid(*this);
+            for(uint y = 0; y < r; y++){
+                for(uint x = 0; x < c; x++){
+                    result.setPos(x,y,_data[y*c+x]/rhs(x,y)); 
                 }
             }
 
@@ -156,8 +217,8 @@ class Grid{
                 throw "Out of range index in getReverseSubset";
             }
             Grid<T> result(xlimit ? xlimit : c, ylimit ? ylimit : r);
-            for (uint y = ylimit; y < result.rows(); y++){
-                for(uint x = xlimit; x < result.cols(); x++){
+            for (uint y = ylimit; y < r; y++){
+                for(uint x = xlimit; x < c; x++){
                     result.setPos(x-xlimit,y-ylimit,_data[(x + y*c)]);
                 }
             }
@@ -212,6 +273,18 @@ class Grid{
             return index;
         }
 
+        std::vector<int> argsort(int col){
+            std::vector<int> order(r);
+            iota(order.begin(), order.end(), 0);
+            std::vector<T> col_data(r);
+            for(int y = 0; y < r; y++)
+                col_data[y] = _data[y*c + col];
+            
+            stable_sort(order.begin(), order.end(),
+            [&col_data](int i1, int i2) {return col_data[i1] > col_data[i2];});
+
+            return order;
+        }
 
         std::string print(){
             std::stringstream ss;
@@ -275,19 +348,40 @@ namespace GridFunc{
     }
 
     template<typename T> inline Grid<T> concatenateNGrids(std::vector<Grid<T>> list){
-        Grid<T> result(list.front().cols(), list.front().rows());
-        for(int i = 1; i < list.size(); i++){
+        Grid<T> result(0, list.front().rows());
+        for(int i = 0; i < list.size(); i++){
             try{
                 result = concatenateGrids(result, list[i]);
             } catch (const char* msg){
                 std::cout << msg << " -> Concatenation Failed at index " << i << std::endl;
-                std::cout << "lhs: " << result << " rhs: " << list[i] << std::endl;
                 return Grid<T>();
             }
         }
 
         return result;
         
+    }
+
+    template<typename T> inline Grid<T> maximum(T value, Grid<T> rhs){
+        Grid<T> result = rhs.createFromGrid(rhs);
+        for(int y = 0; y < rhs.rows(); y++){
+            for(int x = 0; x < rhs.cols(); x++){
+                if(value > result(x,y))
+                    result.setPos(x,y,value);
+            }
+        }
+        return result;
+    }
+
+    template<typename T> inline Grid<T> minimum(T value, Grid<T> rhs){
+        Grid<T> result = rhs.createFromGrid(rhs);
+        for(int y = 0; y < rhs.rows(); y++){
+            for(int x = 0; x < rhs.cols(); x++){
+                if(value < result(x,y))
+                    result.setPos(x,y,value);
+            }
+        }
+        return result;
     }
 }
 

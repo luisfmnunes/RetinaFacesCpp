@@ -19,6 +19,19 @@ cv::Mat hwc_to_chw(const cv::Mat &image){
     return chw_image;
 }
 
+// inline std::ostream& operator<<(std::ostream& os, const std::vector<int> &v){
+//     int count = 0;
+//     os << "[ ";
+//     for(auto item : v){
+//         os << item;
+//         if(++count < v.size())
+//             os << ", ";
+//     }
+//     os << " ]";
+    
+//     return os;
+// }
+
 // void chw_to_hwc(cv::InputArray src, cv::OutputArray dst){
 //     const auto& src_size = src.getMat().size;
 //     const int src_c = src_size[0];
@@ -55,9 +68,7 @@ void inputPreProcessing(cv::Mat &im, float &det_scale, bool reshape, int img_siz
             new_height = int(new_width * im_ratio);
         }
 
-        // std::cout << "Ratio: " << im_ratio << ", New Height: " << new_height << ", New Width: " << new_width << std::endl;
-
-        det_scale = float(new_height / im.rows);
+        det_scale = (float)(new_height) / (float)(im.rows);
         cv::resize(im, resized_img, cv::Size(new_width,new_height));
         resized_img.copyTo(det_im(cv::Rect(0,0,new_width,new_height)));
 
@@ -65,7 +76,6 @@ void inputPreProcessing(cv::Mat &im, float &det_scale, bool reshape, int img_siz
         // opencv 4 dnn solution
         // im = cv::dnn::blobFromImage(det_im, 1.0, cv::Size(), cv::Scalar(103,117,123), false, false, CV_32FC3);
 
-        // im = det_im;
     }
 
 }
@@ -74,9 +84,10 @@ void inputPreProcessing(cv::Mat &im, float &det_scale, bool reshape, int img_siz
 template<typename T> static Grid<T> decode(Grid<T> data, Grid<T> anchors, Config_Data cfg){
     Grid<T> result;
     try{
-        Grid<T> boxes = GridFunc::concatenateGrids(anchors.getSubset(2, 0)+data.getSubset(2, 0)*cfg.variance[0],anchors.getReverseSubset(2, 0) * data.getReverseSubset(2,0).getExponential(cfg.variance[1]));
+        Grid<T> boxes = GridFunc::concatenateGrids(anchors.getSubset(2, 0)+data.getSubset(2, 0)*cfg.variance[0]*anchors.getReverseSubset(2, 0),anchors.getReverseSubset(2, 0) * data.getReverseSubset(2,0).getExponential(cfg.variance[1]));
+        // std::cout << boxes.print() << std::endl;
         Grid<T> sub_set_x = boxes.getSubset(2, 0);
-        sub_set_x -= (boxes.getReverseSubset(2,0)*0.5);
+        sub_set_x -= (boxes.getReverseSubset(2,0)*0.5f);
         Grid<T> sub_set_y = boxes.getReverseSubset(2, 0) + sub_set_x;
     
         result = GridFunc::concatenateGrids(sub_set_x, sub_set_y);
@@ -103,6 +114,39 @@ template<typename T> static Grid<T> decode_landmarks(Grid<T> land, Grid<T> ancho
     return result;
 }
 
+template<typename T> static std::vector<int> nms(Grid<T> dets, float thresh){
+    std::vector<int> keep;
+    std::vector<int> order(dets.rows());
+
+    //bboxes areas = (x2 - x1 + 1) * (y2 - y1 + 1)
+    Grid<T> areas = (dets.getIntervalSubset(gridPoint(2,-1), gridPoint(3,-1)) - dets.getSubset(1,0) + 1) 
+                    * (dets.getIntervalSubset(gridPoint(3,-1),gridPoint(4,-1)) - dets.getIntervalSubset(gridPoint(1,-1),gridPoint(2,-1))+ 1);
+
+    iota(order.begin(), order.end(), 0);
+
+    while(order.size() > 0){
+        int i = order[0];
+        keep.push_back(i);
+
+        Grid<T> xx1 = GridFunc::maximum(dets.getSubset(1,0)(0,i), dets.getSubset(1,0)[std::vector<int>(order.begin()+1,order.end())]);
+        Grid<T> yy1 = GridFunc::maximum(dets.getIntervalSubset(gridPoint(1,-1),gridPoint(2,-1))(0,i), dets.getIntervalSubset(gridPoint(1,-1),gridPoint(2,-1))[std::vector<int>(order.begin()+1,order.end())]);
+        Grid<T> xx2 = GridFunc::minimum(dets.getIntervalSubset(gridPoint(2,-1),gridPoint(3,-1))(0,i), dets.getIntervalSubset(gridPoint(2,-1),gridPoint(3,-1))[std::vector<int>(order.begin()+1,order.end())]);
+        Grid<T> yy2 = GridFunc::minimum(dets.getIntervalSubset(gridPoint(3,-1),gridPoint(4,-1))(0,i), dets.getIntervalSubset(gridPoint(3,-1),gridPoint(4,-1))[std::vector<int>(order.begin()+1,order.end())]);
+
+        Grid<T> w = GridFunc::maximum(0.0f, xx2 - xx1 + 1);
+        Grid<T> h = GridFunc::maximum(0.0f, yy2 - yy1 + 1);
+        Grid<T> inter = w * h;
+
+        Grid<T> ovr = inter / (areas[std::vector<int>(order.begin()+1,order.end())] + areas(0,i) - inter);
+
+        order = ovr.where([thresh](T value) -> bool {return value <= thresh;});
+        for(auto &value : order) value++;
+
+    }
+
+    return keep;
+}
+
 template<typename T> Grid<T> anchors_grid(Config_Data cfg, cv::Size image_size){
     std::vector<T> anchors;
     for(size_t i = 0; i < 3; i++){
@@ -114,10 +158,10 @@ template<typename T> Grid<T> anchors_grid(Config_Data cfg, cv::Size image_size){
         for(size_t x = 0; x < fx; x++){
             for(size_t y = 0; y < fy; y++){
                 for(size_t s = 0; s < min_sz.size(); s++){
-                    float s_kx = min_sz[s]/image_size.width;
-                    float s_ky = min_sz[s]/image_size.height;
-                    float dense_cx = (x + 0.5) * cfg.steps[i]/image_size.width;
-                    float dense_cy = (y + 0.5) * cfg.steps[i]/image_size.height;
+                    float s_kx = ((float) min_sz[s])/((float) image_size.width);
+                    float s_ky = ((float) min_sz[s])/((float) image_size.height);
+                    float dense_cx = (y + 0.5) * cfg.steps[i]/image_size.width;
+                    float dense_cy = (x + 0.5) * cfg.steps[i]/image_size.height;
                     
                     anchors.push_back(dense_cx);
                     anchors.push_back(dense_cy);
@@ -127,20 +171,20 @@ template<typename T> Grid<T> anchors_grid(Config_Data cfg, cv::Size image_size){
                 }
             }
         }
-
         // anchors.emplace_back(anchor_data.size()/4,4);
         // anchors.back().setData(anchor_data.data(), anchor_data.size());
     }
 
     Grid<T> final_grid(4, anchors.size()/4);
     final_grid.setData(anchors.data(), anchors.size());
+    anchors.clear();
 
     return final_grid;
 }
 
-void outputPostProcessing(std::vector<Grid<float>>tensors, Config_Data cfg, cv::Size image_size, float conf_th, int top_k, int keep_top_k){
+Grid<float> outputPostProcessing(std::vector<Grid<float>>tensors, Config_Data cfg, float det_scale, cv::Size image_size, float conf_th, int top_k, int keep_top_k){
     Grid<float> anchors = anchors_grid<float>(cfg, image_size);
-    std::cout << anchors << std::endl;
+    // std::cout << anchors << std::endl;
 
     Grid<float> boxes = decode(tensors[0], anchors, cfg);
     if(image_size.height == image_size.width)
@@ -148,25 +192,16 @@ void outputPostProcessing(std::vector<Grid<float>>tensors, Config_Data cfg, cv::
     else
         throw "Not Yet Implemented";
 
-    // std::cout << boxes << std::endl;
-    // std::cout << boxes(0,0) << " " << boxes(0,1) << " " << boxes(0,2) << " " << boxes(0,3) << std::endl;
-
     Grid<float> scores = tensors[1].getIntervalSubset(gridPoint(1,0), gridPoint(-1,-1));
 
-    // std::ofstream os("scores.txt");
-    // os << tensors[1].print();
-    // os.close();
-
-    std::cout << scores << std::endl;
-    std::cout << "Máx Score: " << scores.max() << std::endl;
-
     Grid<float> landmarks = decode_landmarks(tensors[2], anchors, cfg);
-    std::cout << landmarks << std::endl;
 
     if(image_size.height == image_size.width)
         landmarks *= image_size.height;
-    // std::cout << landmarks(0,0) << ", " << landmarks(1,0) << " " << landmarks(2,0) << ", " << landmarks(3,0) << " " << landmarks(4,0) << ", "
-    // << landmarks(5,0) << " " << landmarks(6,0) << ", " << landmarks(7,0) << " " << landmarks(8,0) << ", " << landmarks(9,0) << " " << std::endl;
+
+    std::ofstream os("landmarks.txt");
+    os << landmarks.print();
+    os.close();
 
     std::vector<int> inds = scores.where([conf_th](float value) -> bool { return value > conf_th; });
     
@@ -174,6 +209,29 @@ void outputPostProcessing(std::vector<Grid<float>>tensors, Config_Data cfg, cv::
     scores = scores[inds];
     landmarks = landmarks[inds];
 
-    std::cout << "Post Filtering" << std::endl;
-    std::cout << boxes << std::endl << scores << std::endl << landmarks << std::endl;
+    //sort index by score
+    inds = scores.argsort(0);
+    boxes = boxes[inds];
+    scores = scores[inds];
+    landmarks = landmarks[inds];
+
+    if (inds.size() > top_k){
+        boxes = boxes.getSubset(0, top_k);
+        scores = scores.getSubset(0, top_k);
+        landmarks = landmarks.getSubset(0, top_k);
+    }
+
+    boxes = boxes / det_scale;
+    landmarks = landmarks / det_scale;
+
+    Grid<float> dets = GridFunc::concatenateGrids(boxes, scores);
+
+    std::vector<int> keep = nms(dets, 0.4);
+
+    dets = dets[keep];
+    landmarks = landmarks[keep];
+
+    return GridFunc::concatenateGrids(dets, landmarks);
 }
+
+

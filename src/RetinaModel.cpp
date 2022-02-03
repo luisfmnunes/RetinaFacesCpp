@@ -2,9 +2,9 @@
 
 RetinaModel::RetinaModel(){}
 
-RetinaModel::RetinaModel(const std::string model_path) : model_path(model_path){}
+RetinaModel::RetinaModel(const std::string model_path) : model_path(model_path), env(NULL), session(NULL){}
 
-RetinaModel::RetinaModel(Ort::Env* &env, const std::string model_path) : env(env), model_path(model_path){}
+RetinaModel::RetinaModel(Ort::Env* &env, const std::string model_path) : env(env), model_path(model_path), session(NULL){}
 
 RetinaModel::~RetinaModel(){
     if(this->env) delete this->env;
@@ -92,9 +92,13 @@ void RetinaModel::setOptions(GraphOptimizationLevel opt_level, int threads){
     this->options.SetIntraOpNumThreads(threads); 
 }
 
-int RetinaModel::getInference(cv::Mat &image, std::vector<Grid<float>> &output, bool resize, size_t img_size){
+int RetinaModel::getInference(cv::Mat &image, Grid<float> &output, bool resize, size_t img_size){
     float det_scale = 0.0f;
     cv::Mat input(image);
+
+    if(!env || !session)
+        return EXIT_FAILURE;
+
     Ort::AllocatorWithDefaultOptions allocator;
     auto memory_info = Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
 
@@ -105,7 +109,7 @@ int RetinaModel::getInference(cv::Mat &image, std::vector<Grid<float>> &output, 
     dims[2] = input.rows;
     dims[3] = input.cols;
 
-    std::cout << dims << std::endl;
+    // std::cout << dims << std::endl;
 
     std::vector<const char*> input_nm(this->input_count);
     for(int i = 0; i < this->input_count; i++)
@@ -129,9 +133,7 @@ int RetinaModel::getInference(cv::Mat &image, std::vector<Grid<float>> &output, 
 
     std::cout << "Running Inference" << std::endl;
     auto output_tensor = this->session->Run(Ort::RunOptions{nullptr}, input_nm.data(), &input_tensor, 1, output_names.data(), output_names.size());
-    // assert(output_tensor.front().IsTensor());
-    while(!output.empty())
-        output.pop_back();
+    assert(output_tensor.front().IsTensor());
 
     std::vector<Grid<float>> out_tensors;
     for(int i=0; i < output_tensor.size(); i++){
@@ -147,7 +149,7 @@ int RetinaModel::getInference(cv::Mat &image, std::vector<Grid<float>> &output, 
     }
 
     Config_Data cfg = get_R50_config();
-    outputPostProcessing(out_tensors, cfg);
+    output = outputPostProcessing(out_tensors, cfg, det_scale);
 
     return EXIT_SUCCESS;
 }
