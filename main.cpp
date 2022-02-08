@@ -5,11 +5,11 @@
 
 using namespace std;
 
-void drawBbox(cv::Mat &image, Grid<float> grid){
+void drawBbox(cv::Mat &image, Grid<float> grid,float scale=1.0f){
     for(int i = 0; i < grid.rows(); i++){
         cv::Rect bbox( cv::Point(grid(0,i), grid(1,i)), cv::Point(grid(2,i),grid(3,i)) );
-        cv::rectangle(image, bbox, cv::Scalar(255,0,255), 2);
-        cv::putText(image, to_string(grid(4,i)),cv::Point(grid(0,i), grid(1,i)-15),cv::FONT_HERSHEY_COMPLEX,1.0, cv::Scalar(255,255,255), 2);
+        cv::rectangle(image, bbox, cv::Scalar(255,0,255), int(scale));
+        cv::putText(image, to_string(grid(4,i)),cv::Point(grid(0,i), grid(1,i)+12*scale),cv::FONT_HERSHEY_DUPLEX , 1.0, cv::Scalar(255,255,255));
     }
 }
 
@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     cout << "End Process: Outputs = " << outputs.rows() << endl;
 
     if(outputs.rows()){
-        drawBbox(im, outputs);
+        drawBbox(im, outputs, scale);
         drawLandmarks(im, outputs);
     }
     cv::imshow("result", im);

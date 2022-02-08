@@ -19,18 +19,18 @@ cv::Mat hwc_to_chw(const cv::Mat &image){
     return chw_image;
 }
 
-// inline std::ostream& operator<<(std::ostream& os, const std::vector<int> &v){
-//     int count = 0;
-//     os << "[ ";
-//     for(auto item : v){
-//         os << item;
-//         if(++count < v.size())
-//             os << ", ";
-//     }
-//     os << " ]";
+static std::ostream& operator<<(std::ostream& os, const std::vector<int> &v){
+    int count = 0;
+    os << "[ ";
+    for(auto item : v){
+        os << item;
+        if(++count < v.size())
+            os << ", ";
+    }
+    os << " ]";
     
-//     return os;
-// }
+    return os;
+}
 
 // void chw_to_hwc(cv::InputArray src, cv::OutputArray dst){
 //     const auto& src_size = src.getMat().size;
@@ -114,33 +114,52 @@ template<typename T> static Grid<T> decode_landmarks(Grid<T> land, Grid<T> ancho
     return result;
 }
 
+template<typename T> static std::vector<T> getSelectedIndexes(std::vector<T> data, std::vector<int> idx){
+    std::vector<T> result(idx.size());
+    for (size_t i = 0; i < idx.size(); i++)
+        result[i] = data[idx[i]];
+    return result;
+}
+//Fix NMS
 template<typename T> static std::vector<int> nms(Grid<T> dets, float thresh){
     std::vector<int> keep;
     std::vector<int> order(dets.rows());
+    std::vector<int> inds;
 
     //bboxes areas = (x2 - x1 + 1) * (y2 - y1 + 1)
     Grid<T> areas = (dets.getIntervalSubset(gridPoint(2,-1), gridPoint(3,-1)) - dets.getSubset(1,0) + 1) 
                     * (dets.getIntervalSubset(gridPoint(3,-1),gridPoint(4,-1)) - dets.getIntervalSubset(gridPoint(1,-1),gridPoint(2,-1))+ 1);
 
-    iota(order.begin(), order.end(), 0);
+    order = dets.argsort(4);
 
     while(order.size() > 0){
         int i = order[0];
         keep.push_back(i);
 
+        //Gets intersection rect points (x1,y1) and (x2,y2)
         Grid<T> xx1 = GridFunc::maximum(dets.getSubset(1,0)(0,i), dets.getSubset(1,0)[std::vector<int>(order.begin()+1,order.end())]);
         Grid<T> yy1 = GridFunc::maximum(dets.getIntervalSubset(gridPoint(1,-1),gridPoint(2,-1))(0,i), dets.getIntervalSubset(gridPoint(1,-1),gridPoint(2,-1))[std::vector<int>(order.begin()+1,order.end())]);
         Grid<T> xx2 = GridFunc::minimum(dets.getIntervalSubset(gridPoint(2,-1),gridPoint(3,-1))(0,i), dets.getIntervalSubset(gridPoint(2,-1),gridPoint(3,-1))[std::vector<int>(order.begin()+1,order.end())]);
         Grid<T> yy2 = GridFunc::minimum(dets.getIntervalSubset(gridPoint(3,-1),gridPoint(4,-1))(0,i), dets.getIntervalSubset(gridPoint(3,-1),gridPoint(4,-1))[std::vector<int>(order.begin()+1,order.end())]);
 
+        //Gets intersection area width and height (or 0 if non-overlapping)
         Grid<T> w = GridFunc::maximum(0.0f, xx2 - xx1 + 1);
         Grid<T> h = GridFunc::maximum(0.0f, yy2 - yy1 + 1);
         Grid<T> inter = w * h;
 
+        //Calculates IoU overlaps 
         Grid<T> ovr = inter / (areas[std::vector<int>(order.begin()+1,order.end())] + areas(0,i) - inter);
 
-        order = ovr.where([thresh](T value) -> bool {return value <= thresh;});
-        for(auto &value : order) value++;
+        //Gets index where IoU is bellow the threshold (low intersection between boxes)
+        inds = ovr.where([thresh](T value) -> bool {return value <= thresh;});
+        // std::cout << inds << std::endl;
+        //Updates indexes (since the first one is used as reference)
+        for(auto &value : inds) value++;
+        // std::cout << inds << std::endl;
+        order = getSelectedIndexes(order, inds);
+
+        // std::cout << order << std::endl;
+        // std::cout << keep << std::endl;
 
     }
 
@@ -209,6 +228,11 @@ Grid<float> outputPostProcessing(std::vector<Grid<float>>tensors, Config_Data cf
     scores = scores[inds];
     landmarks = landmarks[inds];
 
+    std::cout << "Post Threshold Filtering" << std::endl;
+    std::cout << boxes << std::endl;
+    std::cout << scores << std::endl;
+    std::cout << landmarks << std::endl;
+
     //sort index by score
     inds = scores.argsort(0);
     boxes = boxes[inds];
@@ -226,10 +250,14 @@ Grid<float> outputPostProcessing(std::vector<Grid<float>>tensors, Config_Data cf
 
     Grid<float> dets = GridFunc::concatenateGrids(boxes, scores);
 
-    std::vector<int> keep = nms(dets, 0.4);
+    std::vector<int> keep = nms(dets, conf_th);
 
     dets = dets[keep];
     landmarks = landmarks[keep];
+
+    std::cout << "Post NMS Filtering" << std::endl;
+    std::cout << dets << std::endl;
+    std::cout << landmarks << std::endl;
 
     return GridFunc::concatenateGrids(dets, landmarks);
 }
