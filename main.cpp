@@ -53,6 +53,7 @@ int main(int argc, char** argv) {
     }
     cv::imshow("result", im);
     cv::waitKey(0);
+    cv::imwrite("/tmp/img.jpg", im);
 
     return EXIT_SUCCESS;
 }

@@ -1,0 +1,140 @@
+\hypertarget{customFileOps_8h}{}\doxysection{include/custom\+File\+Ops.h File Reference}
+\label{customFileOps_8h}\index{include/customFileOps.h@{include/customFileOps.h}}
+
+
+The module responsible for File and Directory related operations.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$ftw.\+h$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$dirent.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}custom\+Log.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}custom\+String\+Ops.\+h\char`\"{}}\newline
+Include dependency graph for custom\+File\+Ops.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{customFileOps_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{customFileOps_8h_af9be6391c1b4e9c4ac6bca2286b90efd}{list\+\_\+files\+\_\+from\+\_\+ftw}} (const char $\ast$dir, const char $\ast$filter=N\+U\+LL)
+\begin{DoxyCompactList}\small\item\em List files using a file tree walk. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{customFileOps_8h_adb08568024d336aebd7c507f81f62c2c}{list\+\_\+files\+\_\+from\+\_\+ftw}} (std\+::string dir, std\+::string filter=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em List files using a file tree walk (String version) \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{customFileOps_8h_a23618ced4348a9cc6426180526585b6d}{list\+\_\+files\+\_\+from\+\_\+ftw\+\_\+sorted}} (std\+::string dir, std\+::string filter=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em List files using a file tree walk and sort the output. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{customFileOps_8h_a524d1e1cee9faf229279abbc7c43ffb3}{list\+\_\+files\+\_\+from\+\_\+directory}} (std\+::string dir, std\+::string filter=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em List files using dirent structure (faster but limited) \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{customFileOps_8h_ae7e98b34abeb17c7ce01e8eedffa76fd}{list\+\_\+files\+\_\+from\+\_\+directory\+\_\+sorted}} (std\+::string dir, std\+::string filter=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em List files using dirent structure sorting output vector (faster but limited) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{customFileOps_8h_a5d6eab59811626747f64511e88ebf3f0}\label{customFileOps_8h_a5d6eab59811626747f64511e88ebf3f0}} 
+int {\bfseries mkdir} (const std\+::string path)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The module responsible for File and Directory related operations. 
+
+A header containing functions used to interact with Directories and Files 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{customFileOps_8h_a524d1e1cee9faf229279abbc7c43ffb3}\label{customFileOps_8h_a524d1e1cee9faf229279abbc7c43ffb3}} 
+\index{customFileOps.h@{customFileOps.h}!list\_files\_from\_directory@{list\_files\_from\_directory}}
+\index{list\_files\_from\_directory@{list\_files\_from\_directory}!customFileOps.h@{customFileOps.h}}
+\doxysubsubsection{\texorpdfstring{list\_files\_from\_directory()}{list\_files\_from\_directory()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ list\+\_\+files\+\_\+from\+\_\+directory (\begin{DoxyParamCaption}\item[{std\+::string}]{dir,  }\item[{std\+::string}]{filter = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+List files using dirent structure (faster but limited) 
+
+Retrieves all files in a directory and its subdirectoryes (recursively)
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & \mbox{[}in\mbox{]} -\/ A string containing the directory name \\
+\hline
+{\em filter} & \mbox{[}in\mbox{]} (default = \char`\"{}\char`\"{}) -\/ A string containing a filter expression if desired filtering \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{customFileOps_8h_ae7e98b34abeb17c7ce01e8eedffa76fd}\label{customFileOps_8h_ae7e98b34abeb17c7ce01e8eedffa76fd}} 
+\index{customFileOps.h@{customFileOps.h}!list\_files\_from\_directory\_sorted@{list\_files\_from\_directory\_sorted}}
+\index{list\_files\_from\_directory\_sorted@{list\_files\_from\_directory\_sorted}!customFileOps.h@{customFileOps.h}}
+\doxysubsubsection{\texorpdfstring{list\_files\_from\_directory\_sorted()}{list\_files\_from\_directory\_sorted()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ list\+\_\+files\+\_\+from\+\_\+directory\+\_\+sorted (\begin{DoxyParamCaption}\item[{std\+::string}]{dir,  }\item[{std\+::string}]{filter = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+List files using dirent structure sorting output vector (faster but limited) 
+
+Retrieves all files in a directory and its subdirectoryes (recursively), and sort the output result
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & \mbox{[}in\mbox{]} -\/ A string containing the directory name \\
+\hline
+{\em filter} & \mbox{[}in\mbox{]} (default = \char`\"{}\char`\"{}) -\/ A string containing a filter expression if desired filtering \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{customFileOps_8h_af9be6391c1b4e9c4ac6bca2286b90efd}\label{customFileOps_8h_af9be6391c1b4e9c4ac6bca2286b90efd}} 
+\index{customFileOps.h@{customFileOps.h}!list\_files\_from\_ftw@{list\_files\_from\_ftw}}
+\index{list\_files\_from\_ftw@{list\_files\_from\_ftw}!customFileOps.h@{customFileOps.h}}
+\doxysubsubsection{\texorpdfstring{list\_files\_from\_ftw()}{list\_files\_from\_ftw()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ list\+\_\+files\+\_\+from\+\_\+ftw (\begin{DoxyParamCaption}\item[{const char $\ast$}]{dir,  }\item[{const char $\ast$}]{filter = {\ttfamily NULL} }\end{DoxyParamCaption})}
+
+
+
+List files using a file tree walk. 
+
+Retrieves all files in a directory and its subdirectories
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & \mbox{[}in\mbox{]} -\/ A const char pointer containing the directory name \\
+\hline
+{\em filter} & \mbox{[}in\mbox{]} (default = \char`\"{}\char`\"{}) -\/ A const char pointer containing a filter expression if desired filtering \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{customFileOps_8h_adb08568024d336aebd7c507f81f62c2c}\label{customFileOps_8h_adb08568024d336aebd7c507f81f62c2c}} 
+\index{customFileOps.h@{customFileOps.h}!list\_files\_from\_ftw@{list\_files\_from\_ftw}}
+\index{list\_files\_from\_ftw@{list\_files\_from\_ftw}!customFileOps.h@{customFileOps.h}}
+\doxysubsubsection{\texorpdfstring{list\_files\_from\_ftw()}{list\_files\_from\_ftw()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ list\+\_\+files\+\_\+from\+\_\+ftw (\begin{DoxyParamCaption}\item[{std\+::string}]{dir,  }\item[{std\+::string}]{filter = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+List files using a file tree walk (String version) 
+
+Retrieves all files in a directory and its subdirectories
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & \mbox{[}in\mbox{]} -\/ A string containing the directory name \\
+\hline
+{\em filter} & \mbox{[}in\mbox{]} (defulta = \char`\"{}\char`\"{}) -\/ A string containing a filter expression if desired filtering \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{customFileOps_8h_a23618ced4348a9cc6426180526585b6d}\label{customFileOps_8h_a23618ced4348a9cc6426180526585b6d}} 
+\index{customFileOps.h@{customFileOps.h}!list\_files\_from\_ftw\_sorted@{list\_files\_from\_ftw\_sorted}}
+\index{list\_files\_from\_ftw\_sorted@{list\_files\_from\_ftw\_sorted}!customFileOps.h@{customFileOps.h}}
+\doxysubsubsection{\texorpdfstring{list\_files\_from\_ftw\_sorted()}{list\_files\_from\_ftw\_sorted()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ list\+\_\+files\+\_\+from\+\_\+ftw\+\_\+sorted (\begin{DoxyParamCaption}\item[{std\+::string}]{dir,  }\item[{std\+::string}]{filter = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+List files using a file tree walk and sort the output. 
+
+Retrieves all files in a directory and its subdirectories and sort the output vector
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & \mbox{[}in\mbox{]} -\/ A string containing the directory name \\
+\hline
+{\em filter} & \mbox{[}in\mbox{]} (default = \char`\"{}\char`\"{}) -\/ A string containing a filter expression if desired filtering \\
+\hline
+\end{DoxyParams}

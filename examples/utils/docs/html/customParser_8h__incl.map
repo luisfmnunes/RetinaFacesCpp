@@ -1,0 +1,21 @@
+<map id="include/customParser.h" name="include/customParser.h">
+<area shape="rect" id="node1" title="The module contains a parse Class that instatiate a parse Object with possibility to add options,..." alt="" coords="222,5,394,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="42,80,105,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="129,80,180,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="205,80,291,107"/>
+<area shape="rect" id="node5" href="$customChecks_8h.html" title="The module used for custom checking types or values." alt="" coords="698,80,827,107"/>
+<area shape="rect" id="node13" href="$customStringOps_8h.html" title="A module for string operations." alt="" coords="499,80,645,107"/>
+<area shape="rect" id="node15" href="$customLog_8h.html" title="The module responsible for log output." alt="" coords="315,80,421,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="405,155,485,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="510,155,575,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="687,155,753,181"/>
+<area shape="rect" id="node9" title=" " alt="" coords="860,155,945,181"/>
+<area shape="rect" id="node10" title=" " alt="" coords="777,155,836,181"/>
+<area shape="rect" id="node11" title=" " alt="" coords="969,155,1044,181"/>
+<area shape="rect" id="node12" title=" " alt="" coords="1069,155,1161,181"/>
+<area shape="rect" id="node14" title=" " alt="" coords="599,155,662,181"/>
+<area shape="rect" id="node16" title=" " alt="" coords="5,155,67,181"/>
+<area shape="rect" id="node17" title=" " alt="" coords="91,155,162,181"/>
+<area shape="rect" id="node18" title=" " alt="" coords="187,155,283,181"/>
+<area shape="rect" id="node19" title=" " alt="" coords="307,155,381,181"/>
+</map>

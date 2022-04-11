@@ -1,0 +1,91 @@
+\hypertarget{customTimeOps_8h}{}\doxysection{include/custom\+Time\+Ops.h File Reference}
+\label{customTimeOps_8h}\index{include/customTimeOps.h@{include/customTimeOps.h}}
+
+
+The module responsible for time related operations.  
+
+
+{\ttfamily \#include $<$chrono$>$}\newline
+Include dependency graph for custom\+Time\+Ops.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{customTimeOps_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcustom__time}{custom\+\_\+time}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{customTimeOps_8h_ac701b45455cacadd0440dda04a193643}\label{customTimeOps_8h_ac701b45455cacadd0440dda04a193643}} 
+\#define \mbox{\hyperlink{customTimeOps_8h_ac701b45455cacadd0440dda04a193643}{T\+I\+CK}}(X)~auto X = std\+::chrono\+::high\+\_\+resolution\+\_\+clock\+::now();
+\begin{DoxyCompactList}\small\item\em Creates a variable X and stores the current time. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{customTimeOps_8h_a194e8972264a4941f5f31ed55fe25ea4}\label{customTimeOps_8h_a194e8972264a4941f5f31ed55fe25ea4}} 
+\#define \mbox{\hyperlink{customTimeOps_8h_a194e8972264a4941f5f31ed55fe25ea4}{T\+O\+CK}}(X)~\mbox{\hyperlink{customLog_8h_ae40fb990a5db732b8770e52ee1f6a755}{\+\_\+log}}(\char`\"{}Execution time of \%s\+: \%.\+6f seconds.\char`\"{},(\#X), static\+\_\+cast$<$double$>$(std\+::chrono\+::duration\+\_\+cast$<$std\+::chrono\+::microseconds$>$(std\+::chrono\+::high\+\_\+resolution\+\_\+clock\+::now() -\/ X).count())/1000000.\+0);
+\begin{DoxyCompactList}\small\item\em Retrieves the time elapsed since \mbox{\hyperlink{customTimeOps_8h_ac701b45455cacadd0440dda04a193643}{T\+I\+C\+K(\+X)}} and prints the execution time in seconds to microseconds. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{customTimeOps_8h_adb692fa0d0166e88da86e5a0f6449b3e}{T\+O\+C\+K\+\_\+\+M\+IN}}(X)
+\begin{DoxyCompactList}\small\item\em Same as T\+O\+CK but prints execution time in minutes and seconds. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{customTimeOps_8h_ac320e4e9f71cbaadeb6fb8f30d5c4e20}{T\+O\+C\+K\+\_\+H}}(X)
+\begin{DoxyCompactList}\small\item\em Same as T\+O\+CK but prints execution time in hours, minutes and seconds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{customTimeOps_8h_ae74c050c31d5614ca951054b850d41f3}\label{customTimeOps_8h_ae74c050c31d5614ca951054b850d41f3}} 
+\mbox{\hyperlink{structcustom__time}{custom\+\_\+time}} {\bfseries get\+\_\+execution\+\_\+time} (std\+::chrono\+::\+\_\+\+V2\+::system\+\_\+clock\+::time\+\_\+point X)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The module responsible for time related operations. 
+
+A header containing Macros used to print information about execution time. The Macros are\+:
+
+
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{customTimeOps_8h_ac701b45455cacadd0440dda04a193643}{T\+I\+C\+K(\+X)}}\+: Creates a variable X and stores the current time. {\bfseries{Caution}}\+: Variable X can\textquotesingle{}t exist
+\item \mbox{\hyperlink{customTimeOps_8h_a194e8972264a4941f5f31ed55fe25ea4}{T\+O\+C\+K(\+X)}}\+: Retrieves the time elapsed since \mbox{\hyperlink{customTimeOps_8h_ac701b45455cacadd0440dda04a193643}{T\+I\+C\+K(\+X)}} and prints the execution time in seconds to microseconds
+\item \mbox{\hyperlink{customTimeOps_8h_adb692fa0d0166e88da86e5a0f6449b3e}{T\+O\+C\+K\+\_\+\+M\+I\+N(\+X)}}\+: Same as T\+O\+CK but prints execution time in minutes and seconds
+\item \mbox{\hyperlink{customTimeOps_8h_ac320e4e9f71cbaadeb6fb8f30d5c4e20}{T\+O\+C\+K\+\_\+\+H(\+X)}}\+: Same as T\+O\+CK but prints execution time in hours, minutes and seconds 
+\end{DoxyItemize}
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{customTimeOps_8h_ac320e4e9f71cbaadeb6fb8f30d5c4e20}\label{customTimeOps_8h_ac320e4e9f71cbaadeb6fb8f30d5c4e20}} 
+\index{customTimeOps.h@{customTimeOps.h}!TOCK\_H@{TOCK\_H}}
+\index{TOCK\_H@{TOCK\_H}!customTimeOps.h@{customTimeOps.h}}
+\doxysubsubsection{\texorpdfstring{TOCK\_H}{TOCK\_H}}
+{\footnotesize\ttfamily \#define T\+O\+C\+K\+\_\+H(\begin{DoxyParamCaption}\item[{}]{X }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{            custom\_time this\_time = get\_execution\_time(X); \(\backslash\)}
+\DoxyCodeLine{            \_log(\textcolor{stringliteral}{"Execution time of \%s: \%d hours, \%d minutes and \%d seconds."},(\#X),this\_time.hours,this\_time.minutes,this\_time.seconds);\(\backslash\)}
+\DoxyCodeLine{        \});}
+
+\end{DoxyCode}
+
+
+Same as T\+O\+CK but prints execution time in hours, minutes and seconds. 
+
+\mbox{\Hypertarget{customTimeOps_8h_adb692fa0d0166e88da86e5a0f6449b3e}\label{customTimeOps_8h_adb692fa0d0166e88da86e5a0f6449b3e}} 
+\index{customTimeOps.h@{customTimeOps.h}!TOCK\_MIN@{TOCK\_MIN}}
+\index{TOCK\_MIN@{TOCK\_MIN}!customTimeOps.h@{customTimeOps.h}}
+\doxysubsubsection{\texorpdfstring{TOCK\_MIN}{TOCK\_MIN}}
+{\footnotesize\ttfamily \#define T\+O\+C\+K\+\_\+\+M\+IN(\begin{DoxyParamCaption}\item[{}]{X }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{            custom\_time this\_time = get\_execution\_time(X); \(\backslash\)}
+\DoxyCodeLine{            \_log(\textcolor{stringliteral}{"Execution time of \%s: \%lld minutes and \%d seconds."},(\#X),this\_time.minutes,this\_time.seconds);\(\backslash\)}
+\DoxyCodeLine{        \});}
+
+\end{DoxyCode}
+
+
+Same as T\+O\+CK but prints execution time in minutes and seconds. 
+

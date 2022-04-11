@@ -1,0 +1,416 @@
+\hypertarget{customLog_8h}{}\doxysection{include/custom\+Log.h File Reference}
+\label{customLog_8h}\index{include/customLog.h@{include/customLog.h}}
+
+
+The module responsible for log output.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$cstdio$>$}\newline
+{\ttfamily \#include $<$cstdarg$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+Include dependency graph for custom\+Log.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{customLog_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{customLog_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{customLog_8h_a7adb9aaa1eed15caecd92e3837581b53}\label{customLog_8h_a7adb9aaa1eed15caecd92e3837581b53}} 
+\#define \mbox{\hyperlink{customLog_8h_a7adb9aaa1eed15caecd92e3837581b53}{C\+\_\+\+R\+ED}}~\char`\"{}\textbackslash{}033\mbox{[}0;31m\char`\"{}
+\begin{DoxyCompactList}\small\item\em Macro to set red color on streams. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{customLog_8h_a448d973f9ee30250ec93e600f5d89ed1}\label{customLog_8h_a448d973f9ee30250ec93e600f5d89ed1}} 
+\#define \mbox{\hyperlink{customLog_8h_a448d973f9ee30250ec93e600f5d89ed1}{C\+\_\+\+G\+R\+E\+EN}}~\char`\"{}\textbackslash{}033\mbox{[}0;32m\char`\"{}
+\begin{DoxyCompactList}\small\item\em Macro to set green color on streams. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{customLog_8h_a7749aa942f59b07d1e951066e0aeca73}\label{customLog_8h_a7749aa942f59b07d1e951066e0aeca73}} 
+\#define \mbox{\hyperlink{customLog_8h_a7749aa942f59b07d1e951066e0aeca73}{C\+\_\+\+Y\+E\+L\+L\+OW}}~\char`\"{}\textbackslash{}033\mbox{[}0;33m\char`\"{}
+\begin{DoxyCompactList}\small\item\em Macro to set yellow color on streams. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{customLog_8h_a2e4dd0b4af70107f36c2aa60b1195f01}\label{customLog_8h_a2e4dd0b4af70107f36c2aa60b1195f01}} 
+\#define \mbox{\hyperlink{customLog_8h_a2e4dd0b4af70107f36c2aa60b1195f01}{C\+\_\+\+B\+L\+UE}}~\char`\"{}\textbackslash{}033\mbox{[}0;34m\char`\"{}
+\begin{DoxyCompactList}\small\item\em Macro to set blue color on streams. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{customLog_8h_a47da0a04e6c59fa061f60d36c10d9561}\label{customLog_8h_a47da0a04e6c59fa061f60d36c10d9561}} 
+\#define \mbox{\hyperlink{customLog_8h_a47da0a04e6c59fa061f60d36c10d9561}{C\+\_\+\+M\+A\+G\+E\+N\+TA}}~\char`\"{}\textbackslash{}033\mbox{[}0;35m\char`\"{}
+\begin{DoxyCompactList}\small\item\em Macro to set magenta color on streams. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{customLog_8h_a8318e037c99fbf82089b68ba5d603cd0}\label{customLog_8h_a8318e037c99fbf82089b68ba5d603cd0}} 
+\#define \mbox{\hyperlink{customLog_8h_a8318e037c99fbf82089b68ba5d603cd0}{C\+\_\+\+C\+Y\+AN}}~\char`\"{}\textbackslash{}033\mbox{[}0;36m\char`\"{}
+\begin{DoxyCompactList}\small\item\em Macro to set cyan color on streams. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{customLog_8h_a67fead37547ff67ca0a269d712e87822}\label{customLog_8h_a67fead37547ff67ca0a269d712e87822}} 
+\#define \mbox{\hyperlink{customLog_8h_a67fead37547ff67ca0a269d712e87822}{C\+\_\+\+W\+H\+I\+TE}}~\char`\"{}\textbackslash{}033\mbox{[}0;37m\char`\"{}
+\begin{DoxyCompactList}\small\item\em Macro to set white color on streams. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{customLog_8h_af0c29bd95cece6791c62c52e8d2f6335}\label{customLog_8h_af0c29bd95cece6791c62c52e8d2f6335}} 
+\#define \mbox{\hyperlink{customLog_8h_af0c29bd95cece6791c62c52e8d2f6335}{C\+\_\+\+R\+E\+S\+ET}}~\char`\"{}\textbackslash{}033\mbox{[}0;m\char`\"{}
+\begin{DoxyCompactList}\small\item\em Macro to reset color back to normal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{customLog_8h_ae40fb990a5db732b8770e52ee1f6a755}{\+\_\+log}} (const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Prints a log message in the standard output. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{customLog_8h_af1e93a8233712e7b12c7c184823ba643}{\+\_\+warn}} (const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Prints a warning message in the standard output. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{customLog_8h_a55c11eb721bd582bf80e18fddca58b4c}{\+\_\+error}} (const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Prints an error message in the standard output. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{customLog_8h_aeb670463ef28c93dc9b6d4ee5f98ceaf}{\+\_\+result}} (const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Prints a result message in the standard output. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{customLog_8h_addc3d13b9ec42422a7d6c355178c78a6}{\+\_\+debug}} (const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Prints a debug message in the standard output. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{customLog_8h_aa8b5c432de36c6b70144b6848920e7b0}{os\+\_\+log}} (Args ...args)
+\begin{DoxyCompactList}\small\item\em Prints a log message in the standard output (Stream version) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{customLog_8h_ac5092c18c7e57382bfed4e38bf7522a3}{os\+\_\+warn}} (Args ...args)
+\begin{DoxyCompactList}\small\item\em Prints a warning message in the standard output (Stream version) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{customLog_8h_ac8fab1d3bcfe8c697e43dc55d8cc5694}{os\+\_\+error}} (Args ...args)
+\begin{DoxyCompactList}\small\item\em Prints an error message in the standard output (Stream version) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{customLog_8h_ab378ad6f32a67b285708c5c86ba8002d}{os\+\_\+result}} (Args ...args)
+\begin{DoxyCompactList}\small\item\em Prints a result message in the standard output (Stream version) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{customLog_8h_abfb56cb3cb38dd557b1fd4f1ae489fa6}{os\+\_\+debug}} (Args ...args)
+\begin{DoxyCompactList}\small\item\em Prints a debug message in the standard output (Stream version) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The module responsible for log output. 
+
+A header containing functions used to print information in the standard output. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{customLog_8h_addc3d13b9ec42422a7d6c355178c78a6}\label{customLog_8h_addc3d13b9ec42422a7d6c355178c78a6}} 
+\index{customLog.h@{customLog.h}!\_debug@{\_debug}}
+\index{\_debug@{\_debug}!customLog.h@{customLog.h}}
+\doxysubsubsection{\texorpdfstring{\_debug()}{\_debug()}}
+{\footnotesize\ttfamily void \+\_\+debug (\begin{DoxyParamCaption}\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Prints a debug message in the standard output. 
+
+Receives a format string, and an array of corresponding arguments (like printf) 
+\begin{DoxyParams}{Parameters}
+{\em format} & \mbox{[}in\mbox{]} A const char array representing the message ({\itshape e.\+g.} \char`\"{}file\+: \%s\char`\"{}) \\
+\hline
+{\em ...} & \mbox{[}in\mbox{]} respective arguments of the message\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cv::Mat* pre\_processing(cv::Mat* input\_ptr, \textcolor{keywordtype}{int} Operation)\{ ... \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv)\{}
+\DoxyCodeLine{\textcolor{comment}{//...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    processed\_image = pre\_processing(original\_image);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{comment}{//Checking if proper behavior is happening * }}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(DEBUG\_FLAG)\{}
+\DoxyCodeLine{      processed\_image == NULL ? \mbox{\hyperlink{customLog_8h_addc3d13b9ec42422a7d6c355178c78a6}{\_debug}}(\textcolor{stringliteral}{"Processed Image is Null"}) : \mbox{\hyperlink{customLog_8h_addc3d13b9ec42422a7d6c355178c78a6}{\_debug}}(\textcolor{stringliteral}{"Processed Image has size: (\%d,\%d)"},processed\_image.cols,processed\_image.rows); }
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+ \mbox{\Hypertarget{customLog_8h_a55c11eb721bd582bf80e18fddca58b4c}\label{customLog_8h_a55c11eb721bd582bf80e18fddca58b4c}} 
+\index{customLog.h@{customLog.h}!\_error@{\_error}}
+\index{\_error@{\_error}!customLog.h@{customLog.h}}
+\doxysubsubsection{\texorpdfstring{\_error()}{\_error()}}
+{\footnotesize\ttfamily void \+\_\+error (\begin{DoxyParamCaption}\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Prints an error message in the standard output. 
+
+Receives a format string, and an array of corresponding arguments (like printf) 
+\begin{DoxyParams}{Parameters}
+{\em format} & \mbox{[}in\mbox{]} A const char array representing the message ({\itshape e.\+g.} \char`\"{}file\+: \%s\char`\"{}) \\
+\hline
+{\em ...} & \mbox{[}in\mbox{]} respective arguments of the message\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{customLog_8h}{customLog.h}}"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{bool} corruptedTemplate (Template tpt)\{ ... \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()\{}
+\DoxyCodeLine{     \textcolor{comment}{//...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{keywordflow}{if}(corruptedTemplate)\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{         \mbox{\hyperlink{customLog_8h_a55c11eb721bd582bf80e18fddca58b4c}{\_error}}(\textcolor{stringliteral}{"Corrupted Template File \%s. Exitting application."}, tpt.name);}
+\DoxyCodeLine{         \textcolor{keywordflow}{return} EXIT\_FAILURE; }
+\DoxyCodeLine{}
+\DoxyCodeLine{     \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{comment}{//...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+ \mbox{\Hypertarget{customLog_8h_ae40fb990a5db732b8770e52ee1f6a755}\label{customLog_8h_ae40fb990a5db732b8770e52ee1f6a755}} 
+\index{customLog.h@{customLog.h}!\_log@{\_log}}
+\index{\_log@{\_log}!customLog.h@{customLog.h}}
+\doxysubsubsection{\texorpdfstring{\_log()}{\_log()}}
+{\footnotesize\ttfamily void \+\_\+log (\begin{DoxyParamCaption}\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Prints a log message in the standard output. 
+
+Receives a format string, and an array of corresponding arguments (like printf) 
+\begin{DoxyParams}{Parameters}
+{\em format} & \mbox{[}in\mbox{]} A const char array representing the message ({\itshape e.\+g.} \char`\"{}file\+: \%s\char`\"{}) \\
+\hline
+{\em ...} & \mbox{[}in\mbox{]} respective arguments of the message\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{customLog_8h}{customLog.h}}"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv)\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{keywordflow}{if}(argc > 1)\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < argc; i++) \mbox{\hyperlink{customLog_8h_ae40fb990a5db732b8770e52ee1f6a755}{\_log}}(\textcolor{stringliteral}{"Argument \%d = \%s"},i,argv[i]); \textcolor{comment}{//Prints a log list of arguments passed in line command}}
+\DoxyCodeLine{     }
+\DoxyCodeLine{     \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+ \mbox{\Hypertarget{customLog_8h_aeb670463ef28c93dc9b6d4ee5f98ceaf}\label{customLog_8h_aeb670463ef28c93dc9b6d4ee5f98ceaf}} 
+\index{customLog.h@{customLog.h}!\_result@{\_result}}
+\index{\_result@{\_result}!customLog.h@{customLog.h}}
+\doxysubsubsection{\texorpdfstring{\_result()}{\_result()}}
+{\footnotesize\ttfamily void \+\_\+result (\begin{DoxyParamCaption}\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Prints a result message in the standard output. 
+
+Receives a format string, and an array of corresponding arguments (like printf) 
+\begin{DoxyParams}{Parameters}
+{\em format} & \mbox{[}in\mbox{]} A const char array representing the message ({\itshape e.\+g.} \char`\"{}file\+: \%s\char`\"{}) \\
+\hline
+{\em ...} & \mbox{[}in\mbox{]} respective arguments of the message\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{customLog_8h}{customLog.h}}"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{double} computeScore(Template tpt1, Template tpt2) \{ ... \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{...}
+\DoxyCodeLine{}
+\DoxyCodeLine{ \textcolor{keywordflow}{if}(PRINT\_RESULT)\{}
+\DoxyCodeLine{      \mbox{\hyperlink{customLog_8h_aeb670463ef28c93dc9b6d4ee5f98ceaf}{\_result}}(\textcolor{stringliteral}{"Resultant Score: \%.2f"},computeScore(tpt1,tpt2)); }
+\DoxyCodeLine{ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{...}
+\end{DoxyCode}
+ \mbox{\Hypertarget{customLog_8h_af1e93a8233712e7b12c7c184823ba643}\label{customLog_8h_af1e93a8233712e7b12c7c184823ba643}} 
+\index{customLog.h@{customLog.h}!\_warn@{\_warn}}
+\index{\_warn@{\_warn}!customLog.h@{customLog.h}}
+\doxysubsubsection{\texorpdfstring{\_warn()}{\_warn()}}
+{\footnotesize\ttfamily void \+\_\+warn (\begin{DoxyParamCaption}\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Prints a warning message in the standard output. 
+
+Receives a format string, and an array of corresponding arguments (like printf) 
+\begin{DoxyParams}{Parameters}
+{\em format} & \mbox{[}in\mbox{]} A const char array representing the message ({\itshape e.\+g.} \char`\"{}file\+: \%s\char`\"{}) \\
+\hline
+{\em ...} & \mbox{[}in\mbox{]} respective arguments of the message\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{customLog_8h}{customLog.h}}"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{customChecks_8h}{customChecks.h}}"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{keywordtype}{string} num = \textcolor{stringliteral}{"154a"}; \textcolor{comment}{//String to check if the content is numeric.}}
+\DoxyCodeLine{     \textcolor{keywordflow}{if}(!is\_numeric<int>(num)) \mbox{\hyperlink{customLog_8h_af1e93a8233712e7b12c7c184823ba643}{\_warn}}(\textcolor{stringliteral}{"String \%s is not a number."},num.c\_str()); \textcolor{comment}{//Prints Warning if the string num doesn't represent an Integer.}}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+ \mbox{\Hypertarget{customLog_8h_abfb56cb3cb38dd557b1fd4f1ae489fa6}\label{customLog_8h_abfb56cb3cb38dd557b1fd4f1ae489fa6}} 
+\index{customLog.h@{customLog.h}!os\_debug@{os\_debug}}
+\index{os\_debug@{os\_debug}!customLog.h@{customLog.h}}
+\doxysubsubsection{\texorpdfstring{os\_debug()}{os\_debug()}}
+{\footnotesize\ttfamily template$<$typename... Args$>$ \\
+void os\+\_\+debug (\begin{DoxyParamCaption}\item[{Args ...}]{args }\end{DoxyParamCaption})}
+
+
+
+Prints a debug message in the standard output (Stream version) 
+
+Receives any arguments and print if the object has the ostream $<$$<$ operator implemented 
+\begin{DoxyParams}{Parameters}
+{\em ...\+args} & \mbox{[}in\mbox{]} respective arguments of the message\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cv::Mat* pre\_processing(cv::Mat* input\_ptr, \textcolor{keywordtype}{int} Operation)\{ ... \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv)\{}
+\DoxyCodeLine{\textcolor{comment}{//...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    processed\_image = pre\_processing(original\_image);}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{comment}{//Checking if proper behavior is happening * }}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(DEBUG\_FLAG)\{}
+\DoxyCodeLine{      processed\_image == NULL ? \mbox{\hyperlink{customLog_8h_abfb56cb3cb38dd557b1fd4f1ae489fa6}{os\_debug}}(\textcolor{stringliteral}{"Processed Image is Null"}) : \mbox{\hyperlink{customLog_8h_abfb56cb3cb38dd557b1fd4f1ae489fa6}{os\_debug}}(\textcolor{stringliteral}{"Processed Image has size: ("},processed\_image.cols,\textcolor{stringliteral}{","},processed\_image.rows,\textcolor{stringliteral}{")"}); }
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+ \mbox{\Hypertarget{customLog_8h_ac8fab1d3bcfe8c697e43dc55d8cc5694}\label{customLog_8h_ac8fab1d3bcfe8c697e43dc55d8cc5694}} 
+\index{customLog.h@{customLog.h}!os\_error@{os\_error}}
+\index{os\_error@{os\_error}!customLog.h@{customLog.h}}
+\doxysubsubsection{\texorpdfstring{os\_error()}{os\_error()}}
+{\footnotesize\ttfamily template$<$typename... Args$>$ \\
+void os\+\_\+error (\begin{DoxyParamCaption}\item[{Args ...}]{args }\end{DoxyParamCaption})}
+
+
+
+Prints an error message in the standard output (Stream version) 
+
+Receives any arguments and print if the object has the ostream $<$$<$ operator implemented 
+\begin{DoxyParams}{Parameters}
+{\em ...\+args} & \mbox{[}in\mbox{]} respective arguments of the message\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{customLog_8h}{customLog.h}}"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{bool} corruptedTemplate (Template tpt)\{ ... \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()\{}
+\DoxyCodeLine{     \textcolor{comment}{//...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{keywordflow}{if}(corruptedTemplate)\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{         \mbox{\hyperlink{customLog_8h_ac8fab1d3bcfe8c697e43dc55d8cc5694}{os\_error}}(\textcolor{stringliteral}{"Corrupted Template File "}, tpt.name, \textcolor{stringliteral}{". Exitting application."});}
+\DoxyCodeLine{         \textcolor{keywordflow}{return} EXIT\_FAILURE; }
+\DoxyCodeLine{}
+\DoxyCodeLine{     \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{comment}{//...}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+ \mbox{\Hypertarget{customLog_8h_aa8b5c432de36c6b70144b6848920e7b0}\label{customLog_8h_aa8b5c432de36c6b70144b6848920e7b0}} 
+\index{customLog.h@{customLog.h}!os\_log@{os\_log}}
+\index{os\_log@{os\_log}!customLog.h@{customLog.h}}
+\doxysubsubsection{\texorpdfstring{os\_log()}{os\_log()}}
+{\footnotesize\ttfamily template$<$typename... Args$>$ \\
+void os\+\_\+log (\begin{DoxyParamCaption}\item[{Args ...}]{args }\end{DoxyParamCaption})}
+
+
+
+Prints a log message in the standard output (Stream version) 
+
+Receives any arguments and print if the object has the ostream $<$$<$ operator implemented 
+\begin{DoxyParams}{Parameters}
+{\em ...\+args} & \mbox{[}in\mbox{]} respective arguments of the message\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "path\_to: customLog.h"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv)\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{keywordflow}{if}(argc > 1)\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < argc; i++) \mbox{\hyperlink{customLog_8h_aa8b5c432de36c6b70144b6848920e7b0}{os\_log}}(\textcolor{stringliteral}{"Argument"},i,\textcolor{stringliteral}{" = "},argv[i]); \textcolor{comment}{//Prints a log list of arguments passed in line command}}
+\DoxyCodeLine{     }
+\DoxyCodeLine{     \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+ \mbox{\Hypertarget{customLog_8h_ab378ad6f32a67b285708c5c86ba8002d}\label{customLog_8h_ab378ad6f32a67b285708c5c86ba8002d}} 
+\index{customLog.h@{customLog.h}!os\_result@{os\_result}}
+\index{os\_result@{os\_result}!customLog.h@{customLog.h}}
+\doxysubsubsection{\texorpdfstring{os\_result()}{os\_result()}}
+{\footnotesize\ttfamily template$<$typename... Args$>$ \\
+void os\+\_\+result (\begin{DoxyParamCaption}\item[{Args ...}]{args }\end{DoxyParamCaption})}
+
+
+
+Prints a result message in the standard output (Stream version) 
+
+Receives any arguments and print if the object has the ostream $<$$<$ operator implemented 
+\begin{DoxyParams}{Parameters}
+{\em ...\+args} & \mbox{[}in\mbox{]} respective arguments of the message\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{customLog_8h}{customLog.h}}"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{double} computeScore(Template tpt1, Template tpt2) \{ ... \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{...}
+\DoxyCodeLine{}
+\DoxyCodeLine{ \textcolor{keywordflow}{if}(PRINT\_RESULT)\{}
+\DoxyCodeLine{      \mbox{\hyperlink{customLog_8h_ab378ad6f32a67b285708c5c86ba8002d}{os\_result}}(\textcolor{stringliteral}{"Resultant Score: "}, computeScore(tpt1,tpt2)); }
+\DoxyCodeLine{ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{...}
+\end{DoxyCode}
+ \mbox{\Hypertarget{customLog_8h_ac5092c18c7e57382bfed4e38bf7522a3}\label{customLog_8h_ac5092c18c7e57382bfed4e38bf7522a3}} 
+\index{customLog.h@{customLog.h}!os\_warn@{os\_warn}}
+\index{os\_warn@{os\_warn}!customLog.h@{customLog.h}}
+\doxysubsubsection{\texorpdfstring{os\_warn()}{os\_warn()}}
+{\footnotesize\ttfamily template$<$typename... Args$>$ \\
+void os\+\_\+warn (\begin{DoxyParamCaption}\item[{Args ...}]{args }\end{DoxyParamCaption})}
+
+
+
+Prints a warning message in the standard output (Stream version) 
+
+Receives any arguments and print if the object has the ostream $<$$<$ operator implemented 
+\begin{DoxyParams}{Parameters}
+{\em ...\+args} & \mbox{[}in\mbox{]} respective arguments of the message\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{customLog_8h}{customLog.h}}"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{customChecks_8h}{customChecks.h}}"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{keywordtype}{string} num = \textcolor{stringliteral}{"154a"}; \textcolor{comment}{//String to check if the content is numeric.}}
+\DoxyCodeLine{     \textcolor{keywordflow}{if}(!is\_numeric<int>(num)) \mbox{\hyperlink{customLog_8h_ac5092c18c7e57382bfed4e38bf7522a3}{os\_warn}}(\textcolor{stringliteral}{"String "}, num.c\_str(),\textcolor{stringliteral}{" is not a number."},); \textcolor{comment}{//Prints Warning if the string num doesn't represent an Integer.}}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+ 

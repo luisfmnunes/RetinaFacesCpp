@@ -1,0 +1,327 @@
+\hypertarget{classGParser}{}\doxysection{G\+Parser Class Reference}
+\label{classGParser}\index{GParser@{GParser}}
+
+
+An object to parse command line.  
+
+
+
+
+{\ttfamily \#include $<$include/custom\+Parser.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+P\+Errors}} \{ \mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87ab53e6f817a5040d8b6579deb4959e444}{G\+P\+Errors\+::\+P\+E\+R\+R\+O\+R\+\_\+\+N\+O\+NE}}, 
+\mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87a52751d18b2b64787e6052d0175b6b22a}{G\+P\+Errors\+::\+P\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+D\+A\+TA}}, 
+\mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87a2d3b7975c0788af9dc0083df5535aef6}{G\+P\+Errors\+::\+P\+E\+R\+R\+O\+R\+\_\+\+I\+N\+S\+U\+F\+I\+C\+I\+E\+N\+T\+\_\+\+A\+R\+G\+U\+M\+E\+N\+TS}}
+ \}
+\begin{DoxyCompactList}\small\item\em An enumerator of possible parsing errorsto assist. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGParser_a846783c736feadf71673d00b0a9c4f21}{G\+Parser}} ()
+\item 
+\mbox{\hyperlink{classGParser_a36d66289bba60f55006e648cbb814b4f}{G\+Parser}} (std\+::string \mbox{\hyperlink{classGParser_a45c6a3009a21a756607cf77aa12c7072}{description}})
+\begin{DoxyCompactList}\small\item\em Description constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGParser_aa2b8058ff97b8ec9b86bcc66bd836ffa}{G\+Parser}} (bool \mbox{\hyperlink{classGParser_afe53de1b7d532094aa779abbd1c062dd}{debug}})
+\begin{DoxyCompactList}\small\item\em Debug constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGParser_a0a7d247fa6805cf52de049ebfaa66caa}{G\+Parser}} (std\+::string \mbox{\hyperlink{classGParser_a45c6a3009a21a756607cf77aa12c7072}{description}}, bool \mbox{\hyperlink{classGParser_afe53de1b7d532094aa779abbd1c062dd}{debug}})
+\begin{DoxyCompactList}\small\item\em Description and debug constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGParser_afccf7d8fd9dd5664517c94e54ca160bf}{G\+Parser}} (std\+::string \mbox{\hyperlink{classGParser_a45c6a3009a21a756607cf77aa12c7072}{description}}, std\+::string \mbox{\hyperlink{classGParser_a86c7b133aecf9c308c26a91d8cd607f3}{usage}})
+\begin{DoxyCompactList}\small\item\em Description and usage constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGParser_a758a3e33a3c9ef3169af363555fa3be4}{G\+Parser}} (std\+::string \mbox{\hyperlink{classGParser_a45c6a3009a21a756607cf77aa12c7072}{description}}, std\+::string \mbox{\hyperlink{classGParser_a86c7b133aecf9c308c26a91d8cd607f3}{usage}}, bool \mbox{\hyperlink{classGParser_afe53de1b7d532094aa779abbd1c062dd}{debug}})
+\begin{DoxyCompactList}\small\item\em Description, usage and debug constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+P\+Errors}} \mbox{\hyperlink{classGParser_a6446f05c765b13dfc6c4ec372ec0a22f}{parse\+Values}} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Parse the values of the stored variables. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+P\+Errors}} \mbox{\hyperlink{classGParser_a6e1f194e7f7ae49d243af5d92db36b96}{add\+\_\+flag}} (std\+::string option\+\_\+name, std\+::string help\+\_\+str, bool \&var)
+\begin{DoxyCompactList}\small\item\em Add a flag to parser. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGParser_aaa4d0235887bb9d1aadc773cb5b602a3}\label{classGParser_aaa4d0235887bb9d1aadc773cb5b602a3}} 
+\mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+P\+Errors}} \mbox{\hyperlink{classGParser_aaa4d0235887bb9d1aadc773cb5b602a3}{add\+\_\+help}} (std\+::string option\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Add automatic help to parser. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+P\+Errors}} \mbox{\hyperlink{classGParser_ab4956f95b19f0453e9946717905d20ce}{add\+\_\+var\+\_\+name}} (std\+::string option\+\_\+name, std\+::string var\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Add var name to a set of options, used by macros. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+P\+Errors}} \mbox{\hyperlink{classGParser_ab38a132e1078fbe0724627eef86d7d0e}{set\+\_\+debug}} (bool value)
+\begin{DoxyCompactList}\small\item\em Set debug mode of the parser. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+P\+Errors}} \mbox{\hyperlink{classGParser_af3e53d9370a10ddca255d87061178bfa}{add\+\_\+option}} (std\+::string option\+\_\+name, std\+::string help\+\_\+str, T \&var)
+\begin{DoxyCompactList}\small\item\em Add a option to parser. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGParser_ad9587f20f51bc9a363d2ee4721db50b3}\label{classGParser_ad9587f20f51bc9a363d2ee4721db50b3}} 
+void \mbox{\hyperlink{classGParser_ad9587f20f51bc9a363d2ee4721db50b3}{print\+\_\+help}} ()
+\begin{DoxyCompactList}\small\item\em Function to print parser help. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGParser_ad7b111ab188b7e2714faa2a979cd74b7}\label{classGParser_ad7b111ab188b7e2714faa2a979cd74b7}} 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+P\+Errors}} \mbox{\hyperlink{classGParser_ad7b111ab188b7e2714faa2a979cd74b7}{add\+\_\+directive}} (std\+::string option\+\_\+name, std\+::string help\+\_\+str, T \&var, bool req)
+\begin{DoxyCompactList}\small\item\em Core function of add\+\_\+flag and add\+\_\+option. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGParser_afe53de1b7d532094aa779abbd1c062dd}\label{classGParser_afe53de1b7d532094aa779abbd1c062dd}} 
+bool \mbox{\hyperlink{classGParser_afe53de1b7d532094aa779abbd1c062dd}{debug}}
+\begin{DoxyCompactList}\small\item\em Debug mode of the parser. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGParser_a45c6a3009a21a756607cf77aa12c7072}\label{classGParser_a45c6a3009a21a756607cf77aa12c7072}} 
+std\+::string \mbox{\hyperlink{classGParser_a45c6a3009a21a756607cf77aa12c7072}{description}}
+\begin{DoxyCompactList}\small\item\em Description of the parser to print help. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGParser_a86c7b133aecf9c308c26a91d8cd607f3}\label{classGParser_a86c7b133aecf9c308c26a91d8cd607f3}} 
+std\+::string \mbox{\hyperlink{classGParser_a86c7b133aecf9c308c26a91d8cd607f3}{usage}}
+\begin{DoxyCompactList}\small\item\em Usage of the parser to print help. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGParser_a8f99fa172050cbaa83c701e5b59f4f0b}\label{classGParser_a8f99fa172050cbaa83c701e5b59f4f0b}} 
+std\+::map$<$ std\+::string, std\+::function$<$ void(std\+::string)$>$ $>$ \mbox{\hyperlink{classGParser_a8f99fa172050cbaa83c701e5b59f4f0b}{references}}
+\begin{DoxyCompactList}\small\item\em Map of options directives containing lambdas to alter references\textquotesingle{} values. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGParser_af2ef621dee52fe084dc817afa50f9c3b}\label{classGParser_af2ef621dee52fe084dc817afa50f9c3b}} 
+std\+::map$<$ std\+::string, std\+::string $>$ \mbox{\hyperlink{classGParser_af2ef621dee52fe084dc817afa50f9c3b}{var\+\_\+names}}
+\begin{DoxyCompactList}\small\item\em Map of options directives containing variable names. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGParser_a5a31c8e5d88fefdfc8eb105873d40395}\label{classGParser_a5a31c8e5d88fefdfc8eb105873d40395}} 
+std\+::map$<$ std\+::string, std\+::string $>$ \mbox{\hyperlink{classGParser_a5a31c8e5d88fefdfc8eb105873d40395}{help}}
+\begin{DoxyCompactList}\small\item\em Map of options directives containing the help description. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGParser_ad38c1a22203ebfd6ca853b3d58dc03e4}\label{classGParser_ad38c1a22203ebfd6ca853b3d58dc03e4}} 
+std\+::map$<$ std\+::string, bool $>$ \mbox{\hyperlink{classGParser_ad38c1a22203ebfd6ca853b3d58dc03e4}{required}}
+\begin{DoxyCompactList}\small\item\em $<$ Map of options directives indicating if it\textquotesingle{}s a flag or an option \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An object to parse command line. 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classGParser_a56541fffa2a2086f3c60133fc39d0e87}\label{classGParser_a56541fffa2a2086f3c60133fc39d0e87}} 
+\index{GParser@{GParser}!GPErrors@{GPErrors}}
+\index{GPErrors@{GPErrors}!GParser@{GParser}}
+\doxysubsubsection{\texorpdfstring{GPErrors}{GPErrors}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+Parser\+::\+G\+P\+Errors}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+An enumerator of possible parsing errorsto assist. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PERROR\_NONE@{PERROR\_NONE}!GParser@{GParser}}\index{GParser@{GParser}!PERROR\_NONE@{PERROR\_NONE}}}\mbox{\Hypertarget{classGParser_a56541fffa2a2086f3c60133fc39d0e87ab53e6f817a5040d8b6579deb4959e444}\label{classGParser_a56541fffa2a2086f3c60133fc39d0e87ab53e6f817a5040d8b6579deb4959e444}} 
+P\+E\+R\+R\+O\+R\+\_\+\+N\+O\+NE&No Error. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PERROR\_INVALID\_DATA@{PERROR\_INVALID\_DATA}!GParser@{GParser}}\index{GParser@{GParser}!PERROR\_INVALID\_DATA@{PERROR\_INVALID\_DATA}}}\mbox{\Hypertarget{classGParser_a56541fffa2a2086f3c60133fc39d0e87a52751d18b2b64787e6052d0175b6b22a}\label{classGParser_a56541fffa2a2086f3c60133fc39d0e87a52751d18b2b64787e6052d0175b6b22a}} 
+P\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+D\+A\+TA&Invalid Data passed to parser. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PERROR\_INSUFICIENT\_ARGUMENTS@{PERROR\_INSUFICIENT\_ARGUMENTS}!GParser@{GParser}}\index{GParser@{GParser}!PERROR\_INSUFICIENT\_ARGUMENTS@{PERROR\_INSUFICIENT\_ARGUMENTS}}}\mbox{\Hypertarget{classGParser_a56541fffa2a2086f3c60133fc39d0e87a2d3b7975c0788af9dc0083df5535aef6}\label{classGParser_a56541fffa2a2086f3c60133fc39d0e87a2d3b7975c0788af9dc0083df5535aef6}} 
+P\+E\+R\+R\+O\+R\+\_\+\+I\+N\+S\+U\+F\+I\+C\+I\+E\+N\+T\+\_\+\+A\+R\+G\+U\+M\+E\+N\+TS&Insuficient Arguments given to option. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGParser_a846783c736feadf71673d00b0a9c4f21}\label{classGParser_a846783c736feadf71673d00b0a9c4f21}} 
+\index{GParser@{GParser}!GParser@{GParser}}
+\index{GParser@{GParser}!GParser@{GParser}}
+\doxysubsubsection{\texorpdfstring{GParser()}{GParser()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily G\+Parser\+::\+G\+Parser (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Default constructor \mbox{\Hypertarget{classGParser_a36d66289bba60f55006e648cbb814b4f}\label{classGParser_a36d66289bba60f55006e648cbb814b4f}} 
+\index{GParser@{GParser}!GParser@{GParser}}
+\index{GParser@{GParser}!GParser@{GParser}}
+\doxysubsubsection{\texorpdfstring{GParser()}{GParser()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily G\+Parser\+::\+G\+Parser (\begin{DoxyParamCaption}\item[{std\+::string}]{description }\end{DoxyParamCaption})}
+
+
+
+Description constructor. 
+
+A constructor to set the description of the module
+
+
+\begin{DoxyParams}{Parameters}
+{\em description} & \mbox{[}in\mbox{]}\+: String containing the description of the module \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGParser_aa2b8058ff97b8ec9b86bcc66bd836ffa}\label{classGParser_aa2b8058ff97b8ec9b86bcc66bd836ffa}} 
+\index{GParser@{GParser}!GParser@{GParser}}
+\index{GParser@{GParser}!GParser@{GParser}}
+\doxysubsubsection{\texorpdfstring{GParser()}{GParser()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily G\+Parser\+::\+G\+Parser (\begin{DoxyParamCaption}\item[{bool}]{debug }\end{DoxyParamCaption})}
+
+
+
+Debug constructor. 
+
+A constructor to set the debug mode of the parser
+
+
+\begin{DoxyParams}{Parameters}
+{\em debug} & \mbox{[}in\mbox{]}\+: bool to set debug \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGParser_a0a7d247fa6805cf52de049ebfaa66caa}\label{classGParser_a0a7d247fa6805cf52de049ebfaa66caa}} 
+\index{GParser@{GParser}!GParser@{GParser}}
+\index{GParser@{GParser}!GParser@{GParser}}
+\doxysubsubsection{\texorpdfstring{GParser()}{GParser()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily G\+Parser\+::\+G\+Parser (\begin{DoxyParamCaption}\item[{std\+::string}]{description,  }\item[{bool}]{debug }\end{DoxyParamCaption})}
+
+
+
+Description and debug constructor. 
+
+Construct object and set description and debug
+
+
+\begin{DoxyParams}{Parameters}
+{\em description} & \mbox{[}in\mbox{]}\+: A string containing the description of the module \\
+\hline
+{\em debug} & \mbox{[}in\mbox{]}\+: A bool setting the debug mode \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGParser_afccf7d8fd9dd5664517c94e54ca160bf}\label{classGParser_afccf7d8fd9dd5664517c94e54ca160bf}} 
+\index{GParser@{GParser}!GParser@{GParser}}
+\index{GParser@{GParser}!GParser@{GParser}}
+\doxysubsubsection{\texorpdfstring{GParser()}{GParser()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily G\+Parser\+::\+G\+Parser (\begin{DoxyParamCaption}\item[{std\+::string}]{description,  }\item[{std\+::string}]{usage }\end{DoxyParamCaption})}
+
+
+
+Description and usage constructor. 
+
+Construct object and set description and usage
+
+
+\begin{DoxyParams}{Parameters}
+{\em description} & \mbox{[}in\mbox{]}\+: A string containing the description of the module \\
+\hline
+{\em usage} & \mbox{[}in\mbox{]}\+: A string containing the usage of the module \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGParser_a758a3e33a3c9ef3169af363555fa3be4}\label{classGParser_a758a3e33a3c9ef3169af363555fa3be4}} 
+\index{GParser@{GParser}!GParser@{GParser}}
+\index{GParser@{GParser}!GParser@{GParser}}
+\doxysubsubsection{\texorpdfstring{GParser()}{GParser()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily G\+Parser\+::\+G\+Parser (\begin{DoxyParamCaption}\item[{std\+::string}]{description,  }\item[{std\+::string}]{usage,  }\item[{bool}]{debug }\end{DoxyParamCaption})}
+
+
+
+Description, usage and debug constructor. 
+
+A full constructor of the parser class
+
+
+\begin{DoxyParams}{Parameters}
+{\em description} & \mbox{[}in\mbox{]}\+: A string containing the description of the module \\
+\hline
+{\em usage} & \mbox{[}in\mbox{]}\+: A string containing the usage of the module \\
+\hline
+{\em debug} & \mbox{[}in\mbox{]}\+: A bool setting the debug mode \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGParser_a6e1f194e7f7ae49d243af5d92db36b96}\label{classGParser_a6e1f194e7f7ae49d243af5d92db36b96}} 
+\index{GParser@{GParser}!add\_flag@{add\_flag}}
+\index{add\_flag@{add\_flag}!GParser@{GParser}}
+\doxysubsubsection{\texorpdfstring{add\_flag()}{add\_flag()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+P\+Errors}} G\+Parser\+::add\+\_\+flag (\begin{DoxyParamCaption}\item[{std\+::string}]{option\+\_\+name,  }\item[{std\+::string}]{help\+\_\+str,  }\item[{bool \&}]{var }\end{DoxyParamCaption})}
+
+
+
+Add a flag to parser. 
+
+Add a flag to the parser object and bind the bool var to the options present in option\+\_\+name. Recommended use of macro G\+P\+A\+R\+S\+E\+R\+\_\+\+A\+D\+D\+\_\+\+F\+L\+AG to store variable name
+
+
+\begin{DoxyParams}{Parameters}
+{\em option\+\_\+name} & \mbox{[}in\mbox{]}\+: A string containing the options separated by commas (\char`\"{},\char`\"{}) \\
+\hline
+{\em help\+\_\+str} & \mbox{[}in\mbox{]}\+: A description of the flag for the automatic help print \\
+\hline
+{\em var} & \mbox{[}in\mbox{]}\+: Reference to boolean variable to be set in the module\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{customParser_8h_a2058e120042627633b06e37dda7b295e}{G\+P\+A\+R\+S\+E\+R\+\_\+\+A\+D\+D\+\_\+\+F\+L\+AG}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classGParser_af3e53d9370a10ddca255d87061178bfa}\label{classGParser_af3e53d9370a10ddca255d87061178bfa}} 
+\index{GParser@{GParser}!add\_option@{add\_option}}
+\index{add\_option@{add\_option}!GParser@{GParser}}
+\doxysubsubsection{\texorpdfstring{add\_option()}{add\_option()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+P\+Errors}} G\+Parser\+::add\+\_\+option (\begin{DoxyParamCaption}\item[{std\+::string}]{option\+\_\+name,  }\item[{std\+::string}]{help\+\_\+str,  }\item[{T \&}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add a option to parser. 
+
+Add a flag to the parser object and bind the bool var to the options present in option\+\_\+name. Recommended use of macro G\+P\+A\+R\+S\+E\+R\+\_\+\+A\+D\+D\+\_\+\+O\+P\+T\+I\+ON to store variable name
+
+
+\begin{DoxyParams}{Parameters}
+{\em option\+\_\+name} & \mbox{[}in\mbox{]}\+: A string containing the options separated by commas (\char`\"{},\char`\"{}) \\
+\hline
+{\em help\+\_\+str} & \mbox{[}in\mbox{]}\+: A description of the option for the automatic help print \\
+\hline
+{\em var} & \mbox{[}in\mbox{]}\+: Reference to template variable to be set in the calling module\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{customParser_8h_a2300e5ff270a1d1f94a19240be070f44}{G\+P\+A\+R\+S\+E\+R\+\_\+\+A\+D\+D\+\_\+\+O\+P\+T\+I\+ON}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classGParser_ab4956f95b19f0453e9946717905d20ce}\label{classGParser_ab4956f95b19f0453e9946717905d20ce}} 
+\index{GParser@{GParser}!add\_var\_name@{add\_var\_name}}
+\index{add\_var\_name@{add\_var\_name}!GParser@{GParser}}
+\doxysubsubsection{\texorpdfstring{add\_var\_name()}{add\_var\_name()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+P\+Errors}} G\+Parser\+::add\+\_\+var\+\_\+name (\begin{DoxyParamCaption}\item[{std\+::string}]{option\+\_\+name,  }\item[{std\+::string}]{var\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Add var name to a set of options, used by macros. 
+
+Receives the options and the var name as argument and store on the map
+
+
+\begin{DoxyParams}{Parameters}
+{\em option\+\_\+name} & \mbox{[}in\mbox{]}\+: A string containing the options separated by commas (\char`\"{},\char`\"{}) \\
+\hline
+{\em var\+\_\+name} & \mbox{[}in\mbox{]}\+: A string containing the name of the variable \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGParser_a6446f05c765b13dfc6c4ec372ec0a22f}\label{classGParser_a6446f05c765b13dfc6c4ec372ec0a22f}} 
+\index{GParser@{GParser}!parseValues@{parseValues}}
+\index{parseValues@{parseValues}!GParser@{GParser}}
+\doxysubsubsection{\texorpdfstring{parseValues()}{parseValues()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+P\+Errors}} G\+Parser\+::parse\+Values (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Parse the values of the stored variables. 
+
+Receives the command line arguments (argc and argv) and resolve the variables stored on the object
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & \mbox{[}in\mbox{]}\+: Count of arguments present on command line \\
+\hline
+{\em argv} & \mbox{[}in\mbox{]}\+: Buffer array containing the arguments passed on command line\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{customParser_8h_a93afe17f84740dad6750e745347009ed}{G\+P\+A\+R\+S\+E\+R\+\_\+\+P\+A\+R\+SE}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classGParser_ab38a132e1078fbe0724627eef86d7d0e}\label{classGParser_ab38a132e1078fbe0724627eef86d7d0e}} 
+\index{GParser@{GParser}!set\_debug@{set\_debug}}
+\index{set\_debug@{set\_debug}!GParser@{GParser}}
+\doxysubsubsection{\texorpdfstring{set\_debug()}{set\_debug()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGParser_a56541fffa2a2086f3c60133fc39d0e87}{G\+P\+Errors}} G\+Parser\+::set\+\_\+debug (\begin{DoxyParamCaption}\item[{bool}]{value }\end{DoxyParamCaption})}
+
+
+
+Set debug mode of the parser. 
+
+Set debug mode of the parser
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \mbox{[}in\mbox{]}\+: A boolean to set the debug mode \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{customParser_8h}{custom\+Parser.\+h}}\end{DoxyCompactItemize}

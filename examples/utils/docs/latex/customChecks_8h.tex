@@ -1,0 +1,262 @@
+\hypertarget{customChecks_8h}{}\doxysection{include/custom\+Checks.h File Reference}
+\label{customChecks_8h}\index{include/customChecks.h@{include/customChecks.h}}
+
+
+The module used for custom checking types or values.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+Include dependency graph for custom\+Checks.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{customChecks_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{customChecks_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{customChecks_8h_a8a249ab240d1ddef1595f804ea76b57c}{is\+\_\+file}} (std\+::string filename)
+\begin{DoxyCompactList}\small\item\em Check if given input is a file. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{customChecks_8h_a55c4dfb1ac9ee27d742a908b91ee41f6}{is\+\_\+file}} (const char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Check if given input is a file. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{customChecks_8h_a9a7cb5c07258fee9caa9ac261befc2ff}{is\+\_\+dir}} (std\+::string dir)
+\begin{DoxyCompactList}\small\item\em Check if given input is a directory. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{customChecks_8h_a60c9872b75a26d996cfc0ca93f3b562c}{is\+\_\+dir}} (const char $\ast$dir)
+\begin{DoxyCompactList}\small\item\em Check if given input is a directory. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{customChecks_8h_a9e36f5159fada2b974fc331432d6b109}{is\+\_\+numeric}} (std\+::string arg)
+\begin{DoxyCompactList}\small\item\em Check if given input is a templated numeric. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Numeric $>$ }\\bool \mbox{\hyperlink{customChecks_8h_a4797b5bc973f1e93017636b8e8beee57}{is\+\_\+numeric}} (const char $\ast$arg)
+\begin{DoxyCompactList}\small\item\em Check if given input is a templated numeric. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\bool \mbox{\hyperlink{customChecks_8h_acac6214b333fff45a5e5d83b8ddd7969}{is\+\_\+type\+\_\+numeric}} (T var)
+\begin{DoxyCompactList}\small\item\em Check if type of given input is a numeric container (arithmetic) \end{DoxyCompactList}\item 
+int64\+\_\+t \mbox{\hyperlink{customChecks_8h_a7677096974a4ec16c47ea9565220334a}{file\+\_\+size}} (const char $\ast$file)
+\begin{DoxyCompactList}\small\item\em Return the size of a file. \end{DoxyCompactList}\item 
+int64\+\_\+t \mbox{\hyperlink{customChecks_8h_aa39dd4c51f9c66e765e5866e7a9dbb6c}{file\+\_\+size}} (std\+::string file)
+\begin{DoxyCompactList}\small\item\em Return the size of a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The module used for custom checking types or values. 
+
+A header containing functions used to verify certain condition or associated value. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{customChecks_8h_a7677096974a4ec16c47ea9565220334a}\label{customChecks_8h_a7677096974a4ec16c47ea9565220334a}} 
+\index{customChecks.h@{customChecks.h}!file\_size@{file\_size}}
+\index{file\_size@{file\_size}!customChecks.h@{customChecks.h}}
+\doxysubsubsection{\texorpdfstring{file\_size()}{file\_size()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily int64\+\_\+t file\+\_\+size (\begin{DoxyParamCaption}\item[{const char $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Return the size of a file. 
+
+Receives a filename/filepath
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & \mbox{[}in\mbox{]} A char buffer array containing a filename/filepath \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{customChecks_8h_aa39dd4c51f9c66e765e5866e7a9dbb6c}\label{customChecks_8h_aa39dd4c51f9c66e765e5866e7a9dbb6c}} 
+\index{customChecks.h@{customChecks.h}!file\_size@{file\_size}}
+\index{file\_size@{file\_size}!customChecks.h@{customChecks.h}}
+\doxysubsubsection{\texorpdfstring{file\_size()}{file\_size()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily int64\+\_\+t file\+\_\+size (\begin{DoxyParamCaption}\item[{std\+::string}]{file }\end{DoxyParamCaption})}
+
+
+
+Return the size of a file. 
+
+Receives a filename/filepath
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & \mbox{[}in\mbox{]} A string containing a filename/filepath \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{customChecks_8h_a60c9872b75a26d996cfc0ca93f3b562c}\label{customChecks_8h_a60c9872b75a26d996cfc0ca93f3b562c}} 
+\index{customChecks.h@{customChecks.h}!is\_dir@{is\_dir}}
+\index{is\_dir@{is\_dir}!customChecks.h@{customChecks.h}}
+\doxysubsubsection{\texorpdfstring{is\_dir()}{is\_dir()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool is\+\_\+dir (\begin{DoxyParamCaption}\item[{const char $\ast$}]{dir }\end{DoxyParamCaption})}
+
+
+
+Check if given input is a directory. 
+
+Receives a directory path and checks if it exists
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & \mbox{[}in\mbox{]} A char buffer array containing a directory path.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True or False 
+\end{DoxyReturn}
+\mbox{\Hypertarget{customChecks_8h_a9a7cb5c07258fee9caa9ac261befc2ff}\label{customChecks_8h_a9a7cb5c07258fee9caa9ac261befc2ff}} 
+\index{customChecks.h@{customChecks.h}!is\_dir@{is\_dir}}
+\index{is\_dir@{is\_dir}!customChecks.h@{customChecks.h}}
+\doxysubsubsection{\texorpdfstring{is\_dir()}{is\_dir()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool is\+\_\+dir (\begin{DoxyParamCaption}\item[{std\+::string}]{dir }\end{DoxyParamCaption})}
+
+
+
+Check if given input is a directory. 
+
+Receives a directory path and checks if it exists
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & \mbox{[}in\mbox{]} A string containing a directory path.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True or False 
+\end{DoxyReturn}
+\mbox{\Hypertarget{customChecks_8h_a55c4dfb1ac9ee27d742a908b91ee41f6}\label{customChecks_8h_a55c4dfb1ac9ee27d742a908b91ee41f6}} 
+\index{customChecks.h@{customChecks.h}!is\_file@{is\_file}}
+\index{is\_file@{is\_file}!customChecks.h@{customChecks.h}}
+\doxysubsubsection{\texorpdfstring{is\_file()}{is\_file()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool is\+\_\+file (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Check if given input is a file. 
+
+Receives a filename and checks if it exists
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \mbox{[}in\mbox{]} A char buffer array containing a filepath/filename.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True or False 
+\end{DoxyReturn}
+\mbox{\Hypertarget{customChecks_8h_a8a249ab240d1ddef1595f804ea76b57c}\label{customChecks_8h_a8a249ab240d1ddef1595f804ea76b57c}} 
+\index{customChecks.h@{customChecks.h}!is\_file@{is\_file}}
+\index{is\_file@{is\_file}!customChecks.h@{customChecks.h}}
+\doxysubsubsection{\texorpdfstring{is\_file()}{is\_file()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool is\+\_\+file (\begin{DoxyParamCaption}\item[{std\+::string}]{filename }\end{DoxyParamCaption})}
+
+
+
+Check if given input is a file. 
+
+Receives a filename and checks if it exists
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \mbox{[}in\mbox{]} A string containing a filepath/filename.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True or False 
+\end{DoxyReturn}
+\mbox{\Hypertarget{customChecks_8h_a4797b5bc973f1e93017636b8e8beee57}\label{customChecks_8h_a4797b5bc973f1e93017636b8e8beee57}} 
+\index{customChecks.h@{customChecks.h}!is\_numeric@{is\_numeric}}
+\index{is\_numeric@{is\_numeric}!customChecks.h@{customChecks.h}}
+\doxysubsubsection{\texorpdfstring{is\_numeric()}{is\_numeric()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool is\+\_\+numeric (\begin{DoxyParamCaption}\item[{const char $\ast$}]{arg }\end{DoxyParamCaption})}
+
+
+
+Check if given input is a templated numeric. 
+
+Calls a numeric templated function and receives a string to check if it can be converted
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Numeric} & type ({\itshape e.\+g.} int, double) \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em arg} & \mbox{[}in\mbox{]} A char buffer array to check if it matches the numeric template standard (useful checking prior to conversion from string to numeric)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True or False 
+\end{DoxyReturn}
+\mbox{\Hypertarget{customChecks_8h_a9e36f5159fada2b974fc331432d6b109}\label{customChecks_8h_a9e36f5159fada2b974fc331432d6b109}} 
+\index{customChecks.h@{customChecks.h}!is\_numeric@{is\_numeric}}
+\index{is\_numeric@{is\_numeric}!customChecks.h@{customChecks.h}}
+\doxysubsubsection{\texorpdfstring{is\_numeric()}{is\_numeric()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Numeric $>$ \\
+bool is\+\_\+numeric (\begin{DoxyParamCaption}\item[{std\+::string}]{arg }\end{DoxyParamCaption})}
+
+
+
+Check if given input is a templated numeric. 
+
+Calls a numeric templated function and receives a string to check if it can be converted
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Numeric} & type ({\itshape e.\+g.} int, double) \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em arg} & \mbox{[}in\mbox{]} A string to check if it matches the numeric template standard (useful checking prior to conversion from string to numeric)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True or False
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "\mbox{\hyperlink{customChecks_8h}{customChecks.h}}"} }
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main()\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordtype}{string} s = \textcolor{stringliteral}{"130.4"};}
+\DoxyCodeLine{    is\_numeric<int>(s); \textcolor{comment}{//False}}
+\DoxyCodeLine{    is\_numeric<double>(s); \textcolor{comment}{//True}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+ \mbox{\Hypertarget{customChecks_8h_acac6214b333fff45a5e5d83b8ddd7969}\label{customChecks_8h_acac6214b333fff45a5e5d83b8ddd7969}} 
+\index{customChecks.h@{customChecks.h}!is\_type\_numeric@{is\_type\_numeric}}
+\index{is\_type\_numeric@{is\_type\_numeric}!customChecks.h@{customChecks.h}}
+\doxysubsubsection{\texorpdfstring{is\_type\_numeric()}{is\_type\_numeric()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool is\+\_\+type\+\_\+numeric (\begin{DoxyParamCaption}\item[{T}]{var }\end{DoxyParamCaption})}
+
+
+
+Check if type of given input is a numeric container (arithmetic) 
+
+Calls a templated function and receives a variable to check if its type is arithmetic
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em var} & \mbox{[}in\mbox{]} Any Variable (primitive types or not)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True or False 
+\end{DoxyReturn}

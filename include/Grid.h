@@ -229,6 +229,8 @@ class Grid{
         // grid[begin.x : end.x, begin.y : end.y]
         Grid<T> getIntervalSubset(gridPoint begin, gridPoint end){
             begin.relu();
+            if(begin.x < 0) begin.x = 0;
+            if(begin.y < 0) begin.x = 0;
             if(end.x < 0) end.x = c;
             if(end.y < 0) end.y = r;
 

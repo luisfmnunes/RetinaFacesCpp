@@ -1,0 +1,167 @@
+\hypertarget{customParser_8h}{}\doxysection{include/custom\+Parser.h File Reference}
+\label{customParser_8h}\index{include/customParser.h@{include/customParser.h}}
+
+
+The module contains a parse Class that instatiate a parse Object with possibility to add options, flags, and an automatic help print.  
+
+
+{\ttfamily \#include $<$queue$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include \char`\"{}custom\+Checks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}custom\+String\+Ops.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}custom\+Log.\+h\char`\"{}}\newline
+Include dependency graph for custom\+Parser.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{customParser_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classGParser}{G\+Parser}}
+\begin{DoxyCompactList}\small\item\em An object to parse command line. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{customParser_8h_a2300e5ff270a1d1f94a19240be070f44}{G\+P\+A\+R\+S\+E\+R\+\_\+\+A\+D\+D\+\_\+\+O\+P\+T\+I\+ON}}(parser,  option\+\_\+name,  help\+\_\+str,  ref)
+\begin{DoxyCompactList}\small\item\em Add option to parser and bind ref variable to option. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{customParser_8h_a2058e120042627633b06e37dda7b295e}{G\+P\+A\+R\+S\+E\+R\+\_\+\+A\+D\+D\+\_\+\+F\+L\+AG}}(parser,  option\+\_\+name,  help\+\_\+str,  ref)
+\begin{DoxyCompactList}\small\item\em Add flag to parser and bind ref variable to flag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{customParser_8h_a60ad253f7a18149b5dab5df4e58f091e}\label{customParser_8h_a60ad253f7a18149b5dab5df4e58f091e}} 
+\#define \mbox{\hyperlink{customParser_8h_a60ad253f7a18149b5dab5df4e58f091e}{G\+P\+A\+R\+S\+E\+R\+\_\+\+A\+D\+D\+\_\+\+H\+E\+LP}}(parser,  option\+\_\+name)~parser.\+add\+\_\+help(option\+\_\+name);
+\begin{DoxyCompactList}\small\item\em Add a help option to parser. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{customParser_8h_a93afe17f84740dad6750e745347009ed}\label{customParser_8h_a93afe17f84740dad6750e745347009ed}} 
+\#define \mbox{\hyperlink{customParser_8h_a93afe17f84740dad6750e745347009ed}{G\+P\+A\+R\+S\+E\+R\+\_\+\+P\+A\+R\+SE}}(parser,  argc,  argv)~parser.\+parse\+Values(argc,argv);
+\begin{DoxyCompactList}\small\item\em Parse the command line with the parser object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The module contains a parse Class that instatiate a parse Object with possibility to add options, flags, and an automatic help print. 
+
+A header containing functions used and macros used to parse information from command line. The macros are used to store the variable names binded to certain option/flag/help The list of macros are\+:
+
+
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{customParser_8h_a2300e5ff270a1d1f94a19240be070f44}{G\+P\+A\+R\+S\+E\+R\+\_\+\+A\+D\+D\+\_\+\+O\+P\+T\+I\+O\+N(parser,option\+\_\+name,help\+\_\+str,ref)}}\+: receives a parser object and add option to parser binding variable name of ref variable to such option
+\item \mbox{\hyperlink{customParser_8h_a2058e120042627633b06e37dda7b295e}{G\+P\+A\+R\+S\+E\+R\+\_\+\+A\+D\+D\+\_\+\+F\+L\+A\+G(parser,option\+\_\+name,help\+\_\+str,ref)}}\+: same as G\+P\+A\+R\+S\+E\+R\+\_\+\+A\+D\+D\+\_\+\+O\+P\+T\+I\+ON but related to a F\+L\+AG $<$
+\item \mbox{\hyperlink{customParser_8h_a60ad253f7a18149b5dab5df4e58f091e}{G\+P\+A\+R\+S\+E\+R\+\_\+\+A\+D\+D\+\_\+\+H\+E\+L\+P(parser,option\+\_\+name)}}\+: add an option exclusive to help printing
+\item \mbox{\hyperlink{customParser_8h_a93afe17f84740dad6750e745347009ed}{G\+P\+A\+R\+S\+E\+R\+\_\+\+P\+A\+R\+S\+E(parser,argc,argv)}}\+: parse command line 
+\end{DoxyItemize}
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{customParser_8h_a2058e120042627633b06e37dda7b295e}\label{customParser_8h_a2058e120042627633b06e37dda7b295e}} 
+\index{customParser.h@{customParser.h}!GPARSER\_ADD\_FLAG@{GPARSER\_ADD\_FLAG}}
+\index{GPARSER\_ADD\_FLAG@{GPARSER\_ADD\_FLAG}!customParser.h@{customParser.h}}
+\doxysubsubsection{\texorpdfstring{GPARSER\_ADD\_FLAG}{GPARSER\_ADD\_FLAG}}
+{\footnotesize\ttfamily \#define G\+P\+A\+R\+S\+E\+R\+\_\+\+A\+D\+D\+\_\+\+F\+L\+AG(\begin{DoxyParamCaption}\item[{}]{parser,  }\item[{}]{option\+\_\+name,  }\item[{}]{help\+\_\+str,  }\item[{}]{ref }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    parser.add\_flag(option\_name,help\_str,ref); \(\backslash\)}
+\DoxyCodeLine{    parser.add\_var\_name(option\_name,\#ref);}
+
+\end{DoxyCode}
+
+
+Add flag to parser and bind ref variable to flag. 
+
+This macro receives a \mbox{\hyperlink{classGParser}{G\+Parser}} Object and call the \mbox{\hyperlink{classGParser_a6e1f194e7f7ae49d243af5d92db36b96}{add\+\_\+flag}} and \mbox{\hyperlink{classGParser_ab4956f95b19f0453e9946717905d20ce}{add\+\_\+var\+\_\+name}} routines with given parameters
+
+
+\begin{DoxyParams}{Parameters}
+{\em parser} & \mbox{[}in\mbox{]}\+: A \mbox{\hyperlink{classGParser}{G\+Parser}} Object meant to be used. \\
+\hline
+{\em option\+\_\+name} & \mbox{[}in\mbox{]}\+: A string containing the flag directive(s), separated by comma if multiple {\bfseries{({\itshape e.\+g} \char`\"{}-\/s,-\/-\/sort\char`\"{})}}; \\
+\hline
+{\em help\+\_\+str} & \mbox{[}in\mbox{]}\+: A string containing the help description of the flag \\
+\hline
+{\em ref} & \mbox{[}in\mbox{]}\+: Bool to be parsed by given flag\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "path\_to/customParser.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "path\_to/customLog.h"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv)\{}
+\DoxyCodeLine{     \mbox{\hyperlink{classGParser}{GParser}} parser(\textcolor{stringliteral}{"Example of Parser"}, \textcolor{keyword}{true}); \textcolor{comment}{//Creates parser with description and debug ON.}}
+\DoxyCodeLine{     \textcolor{keywordtype}{bool} sort = \textcolor{keyword}{false};}
+\DoxyCodeLine{ }
+\DoxyCodeLine{     \mbox{\hyperlink{customLog_8h_abfb56cb3cb38dd557b1fd4f1ae489fa6}{os\_debug}}(\textcolor{stringliteral}{"Result of sort before: "}, sort ? \textcolor{stringliteral}{"true"} : \textcolor{stringliteral}{"false"}); \textcolor{comment}{//false}}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \mbox{\hyperlink{customParser_8h_a2058e120042627633b06e37dda7b295e}{GPARSER\_ADD\_FLAG}}(parser,\textcolor{stringliteral}{"-\/s,-\/-\/sort"},\textcolor{stringliteral}{"Example of option of flag"},sort); \textcolor{comment}{//Add options -\/s and -\/-\/sort to set sort}}
+\DoxyCodeLine{     \mbox{\hyperlink{customParser_8h_a93afe17f84740dad6750e745347009ed}{GPARSER\_PARSE}}(parser,argc,argv); \textcolor{comment}{//Parse command line}}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{comment}{// Possible command lines:}}
+\DoxyCodeLine{     \textcolor{comment}{// ./example -\/s }}
+\DoxyCodeLine{     \textcolor{comment}{// ./example -\/-\/sort}}
+\DoxyCodeLine{     \mbox{\hyperlink{customLog_8h_abfb56cb3cb38dd557b1fd4f1ae489fa6}{os\_debug}}(\textcolor{stringliteral}{"Result of sort after: "}, sort ? \textcolor{stringliteral}{"true"} : \textcolor{stringliteral}{"false"}); \textcolor{comment}{//true}}
+\DoxyCodeLine{ }
+\DoxyCodeLine{     \textcolor{keywordflow}{return} EXIT\_SUCESS;}
+\DoxyCodeLine{\} }
+\end{DoxyCode}
+ \mbox{\Hypertarget{customParser_8h_a2300e5ff270a1d1f94a19240be070f44}\label{customParser_8h_a2300e5ff270a1d1f94a19240be070f44}} 
+\index{customParser.h@{customParser.h}!GPARSER\_ADD\_OPTION@{GPARSER\_ADD\_OPTION}}
+\index{GPARSER\_ADD\_OPTION@{GPARSER\_ADD\_OPTION}!customParser.h@{customParser.h}}
+\doxysubsubsection{\texorpdfstring{GPARSER\_ADD\_OPTION}{GPARSER\_ADD\_OPTION}}
+{\footnotesize\ttfamily \#define G\+P\+A\+R\+S\+E\+R\+\_\+\+A\+D\+D\+\_\+\+O\+P\+T\+I\+ON(\begin{DoxyParamCaption}\item[{}]{parser,  }\item[{}]{option\+\_\+name,  }\item[{}]{help\+\_\+str,  }\item[{}]{ref }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    parser.add\_option(option\_name,help\_str,ref); \(\backslash\)}
+\DoxyCodeLine{    parser.add\_var\_name(option\_name,\#ref);}
+
+\end{DoxyCode}
+
+
+Add option to parser and bind ref variable to option. 
+
+This macro receives a \mbox{\hyperlink{classGParser}{G\+Parser}} Object and call the \mbox{\hyperlink{classGParser_af3e53d9370a10ddca255d87061178bfa}{add\+\_\+option}} and \mbox{\hyperlink{classGParser_ab4956f95b19f0453e9946717905d20ce}{add\+\_\+var\+\_\+name}} routines with given parameters
+
+
+\begin{DoxyParams}{Parameters}
+{\em parser} & \mbox{[}in\mbox{]}\+: A \mbox{\hyperlink{classGParser}{G\+Parser}} Object meant to be used. \\
+\hline
+{\em option\+\_\+name} & \mbox{[}in\mbox{]}\+: A string containing the option directive(s), separated by comma if multiple {\bfseries{({\itshape e.\+g} \char`\"{}-\/f,-\/-\/file\char`\"{})}}; \\
+\hline
+{\em help\+\_\+str} & \mbox{[}in\mbox{]}\+: A string containing the help description of the option \\
+\hline
+{\em ref} & \mbox{[}in\mbox{]}\+: Variable to be parsed by given option\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "path\_to/customParser.h"}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "path\_to/customLog.h"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv)\{}
+\DoxyCodeLine{     \mbox{\hyperlink{classGParser}{GParser}} parser(\textcolor{stringliteral}{"Example of Parser"}, \textcolor{keyword}{true}); \textcolor{comment}{//Creates parser with description and debug ON.}}
+\DoxyCodeLine{     \textcolor{keywordtype}{string} text = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{     \textcolor{keywordtype}{int} value = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \mbox{\hyperlink{customLog_8h_abfb56cb3cb38dd557b1fd4f1ae489fa6}{os\_debug}}(\textcolor{stringliteral}{"Result of text before: "}, text);}
+\DoxyCodeLine{     \mbox{\hyperlink{customLog_8h_abfb56cb3cb38dd557b1fd4f1ae489fa6}{os\_debug}}(\textcolor{stringliteral}{"Result of value before: "},value);}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \mbox{\hyperlink{customParser_8h_a2300e5ff270a1d1f94a19240be070f44}{GPARSER\_ADD\_OPTION}}(parser,\textcolor{stringliteral}{"-\/s,-\/-\/string"},\textcolor{stringliteral}{"Example of option to set string value"},text); \textcolor{comment}{//Add options -\/s and -\/-\/string to change text}}
+\DoxyCodeLine{     \mbox{\hyperlink{customParser_8h_a2300e5ff270a1d1f94a19240be070f44}{GPARSER\_ADD\_OPTION}}(parser,\textcolor{stringliteral}{"-\/i"},\textcolor{stringliteral}{"Example of option to set int value"}, value); \textcolor{comment}{//Add option -\/i to change value}}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \mbox{\hyperlink{customParser_8h_a93afe17f84740dad6750e745347009ed}{GPARSER\_PARSE}}(parser,argc,argv); \textcolor{comment}{//Parse command line}}
+\DoxyCodeLine{}
+\DoxyCodeLine{     \textcolor{comment}{// Possible command lines:}}
+\DoxyCodeLine{     \textcolor{comment}{// ./example -\/i 30 -\/s Griaule}}
+\DoxyCodeLine{     \textcolor{comment}{// ./example -\/is 30 Griaule }}
+\DoxyCodeLine{     \textcolor{comment}{// ./example -\/-\/string Griaule -\/i 30}}
+\DoxyCodeLine{     \mbox{\hyperlink{customLog_8h_abfb56cb3cb38dd557b1fd4f1ae489fa6}{os\_debug}}(\textcolor{stringliteral}{"Result of text after: "}, text); \textcolor{comment}{//should print "Result of text after: Griaule"}}
+\DoxyCodeLine{     \mbox{\hyperlink{customLog_8h_abfb56cb3cb38dd557b1fd4f1ae489fa6}{os\_debug}}(\textcolor{stringliteral}{"Result of value after: "}, value); \textcolor{comment}{//should print "Result of value after: 30"}}
+\DoxyCodeLine{ }
+\DoxyCodeLine{     \textcolor{keywordflow}{return} EXIT\_SUCESS;}
+\DoxyCodeLine{\} }
+\end{DoxyCode}
+ 

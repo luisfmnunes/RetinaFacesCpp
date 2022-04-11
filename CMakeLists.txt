@@ -13,6 +13,11 @@ add_executable(RetinaCpp main.cpp ${SOURCES})
 target_include_directories(RetinaCpp PRIVATE include)
 target_link_libraries( RetinaCpp ${OpenCV_LIBS} onnxruntime)
 
+add_executable(full examples/full.cpp ${SOURCES})
+target_include_directories(full PRIVATE include examples/utils)
+target_link_directories(full PRIVATE lib examples/utils)
+target_link_libraries(full ${OpenCV_LIBS} onnxruntime gface utils pthread)
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)

@@ -1,15 +1,14 @@
 #include <RetinaModel.h>
 
-RetinaModel::RetinaModel(){}
+RetinaModel::RetinaModel() : env(NULL), session(NULL) {}
+
+RetinaModel::RetinaModel(bool debug) : env(NULL), session(NULL), debug(debug) {} 
 
 RetinaModel::RetinaModel(const std::string model_path) : model_path(model_path), env(NULL), session(NULL){}
 
 RetinaModel::RetinaModel(Ort::Env* &env, const std::string model_path) : env(env), model_path(model_path), session(NULL){}
 
-RetinaModel::~RetinaModel(){
-    if(this->env) delete this->env;
-    if(this->session) delete this->session;
-}
+RetinaModel::~RetinaModel() {}
 
 static int getNameIndex(const std::string name, const std::vector<std::string> vec){
     for(int i = 0; i < vec.size(); i++)
@@ -17,16 +16,27 @@ static int getNameIndex(const std::string name, const std::vector<std::string> v
     return -1;
 }
 
-int RetinaModel::_init(Ort::Env* env, const std::string model_path, GraphOptimizationLevel opt_level, int threads){
+int RetinaModel::_init(Ort::Env* env, const std::string model_path, bool debug, GraphOptimizationLevel opt_level, int threads){
     
     Ort::AllocatorWithDefaultOptions allocator;
-    this->options.SetGraphOptimizationLevel(opt_level);
-    this->options.SetInterOpNumThreads(threads);
-    this->options.SetIntraOpNumThreads(threads);
+    Ort::SessionOptions options;
+    OrtThreadingOptions *thOpts;
+    OrtStatusPtr status;
+    status = Ort::GetApi().CreateThreadingOptions(&thOpts);
+    status = Ort::GetApi().SetGlobalIntraOpNumThreads(thOpts, threads);
+    status = Ort::GetApi().SetGlobalInterOpNumThreads(thOpts, threads);
+
+    options.SetExecutionMode(ORT_SEQUENTIAL);
+    options.DisablePerSessionThreads();
+    options.SetGraphOptimizationLevel(opt_level);
+    options.SetInterOpNumThreads(threads);
+    options.SetIntraOpNumThreads(threads);
+
+    this->debug = debug;
 
     if(env == NULL){
         if(this->env==NULL)
-            this->env = new Ort::Env();
+            this->env = new Ort::Env(thOpts, ORT_LOGGING_LEVEL_FATAL, "retina_env");
         if (!this->env) return EXIT_FAILURE;
     } else {
         this->env = env;
@@ -34,21 +44,28 @@ int RetinaModel::_init(Ort::Env* env, const std::string model_path, GraphOptimiz
 
     if(model_path.empty()){
         if(!this->model_path.empty()){
-            this->session = new Ort::Session(*(this->env), this->model_path.c_str(), this->options);
+            this->session = new Ort::Session(*(this->env), this->model_path.c_str(), options);
             if(!this->session) return EXIT_FAILURE;
         }
     } else {
-        this->session = new Ort::Session(*(this->env), model_path.c_str(), this->options);
+        this->session = new Ort::Session(*(this->env), model_path.c_str(), options);
         if(!this->session) return EXIT_FAILURE;
     }
 
     this->input_count = session->GetInputCount();
     this->output_count = session->GetOutputCount();
 
-    for(int i = 0; i < this->input_count; i++)
-        this->input_names.push_back(this->session->GetInputName(i, allocator));
-    for(int i = 0; i < this->output_count; i++)
-        this->output_names.push_back(this->session->GetOutputName(i, allocator));
+    for(int i = 0; i < this->input_count; i++){
+        const char* input = this->session->GetInputName(i, allocator);
+        this->input_names.emplace_back(input);
+        allocator.Free((void*) input);
+    }
+
+    for(int i = 0; i < this->output_count; i++){
+        const char* output = this->session->GetOutputName(i, allocator);
+        this->output_names.emplace_back(output);
+        allocator.Free((void*) output);
+    }
 
     if(this->input_names.size() != this->input_count || this->output_names.size() != this->output_count) return EXIT_FAILURE;
 
@@ -64,6 +81,8 @@ int RetinaModel::_init(Ort::Env* env, const std::string model_path, GraphOptimiz
         this->output_shapes.emplace(name, this->session->GetOutputTypeInfo(idx).GetTensorTypeAndShapeInfo().GetShape());
     }
 
+    Ort::GetApi().ReleaseThreadingOptions(thOpts);
+
     return EXIT_SUCCESS;
 }
 
@@ -75,22 +94,27 @@ int RetinaModel::init(Ort::Env* &env){
     return _init(env);
 }
 
-int RetinaModel::init(const std::string model_path, GraphOptimizationLevel opt_level, int threads){
-    return _init(this->env, model_path, opt_level, threads);
+int RetinaModel::init(const std::string model_path, bool debug, GraphOptimizationLevel opt_level, int threads){
+    return _init(this->env, model_path, debug, opt_level, threads);
 }
 
-int RetinaModel::init(Ort::Env* &env, const std::string model_path, GraphOptimizationLevel opt_level, int threads){
-    return _init(env, model_path, opt_level, threads);
+int RetinaModel::init(Ort::Env* &env, const std::string model_path, bool debug, GraphOptimizationLevel opt_level, int threads){
+    return _init(env, model_path, debug, opt_level, threads);
+}
+
+void RetinaModel::release(){
+    if(this->env) delete this->env;
+    if(this->session) delete this->session;
 }
 
 std::string RetinaModel::getModelPath(){ return this->model_path; }
 void RetinaModel::setModelPath(std::string model_path){ this->model_path = model_path; }
 
-void RetinaModel::setOptions(GraphOptimizationLevel opt_level, int threads){
-    this->options.SetGraphOptimizationLevel(opt_level);
-    this->options.SetInterOpNumThreads(threads);
-    this->options.SetIntraOpNumThreads(threads); 
-}
+// void RetinaModel::setOptions(GraphOptimizationLevel opt_level, int threads){
+//     this->options.SetGraphOptimizationLevel(opt_level);
+//     this->options.SetInterOpNumThreads(threads);
+//     this->options.SetIntraOpNumThreads(threads); 
+// }
 
 int RetinaModel::getInference(cv::Mat &image, Grid<float> &output, bool resize, size_t img_size){
     float det_scale = 0.0f;
@@ -122,7 +146,7 @@ int RetinaModel::getInference(cv::Mat &image, Grid<float> &output, bool resize, 
     std::vector<float> input_data(data_size);
     input_data.assign((float*)input.datastart, (float*)input.dataend); 
 
-    std::cout << "Creating Input Tensor" << std::endl;
+    if(this->debug) std::cout << "[RetinaFace Debug] Creating Input Tensor" << std::endl;
     Ort::Value input_tensor = Ort::Value::CreateTensor<float>(memory_info, input_data.data(), input_data.size(), dims.data(), dims.size());
     if(!input_tensor.IsTensor())
         return EXIT_FAILURE;
@@ -131,7 +155,7 @@ int RetinaModel::getInference(cv::Mat &image, Grid<float> &output, bool resize, 
     for (int i = 0; i < this->output_count; i++) output_names[i] = this->session->GetOutputName(i, allocator);
     // for (auto name : output_names) std::cout << name << std::endl;
 
-    std::cout << "Running Inference" << std::endl;
+    if(this->debug) std::cout << "[RetinaFace Debug] Running Inference" << std::endl;
     auto output_tensor = this->session->Run(Ort::RunOptions{nullptr}, input_nm.data(), &input_tensor, 1, output_names.data(), output_names.size());
     assert(output_tensor.front().IsTensor());
 
@@ -140,7 +164,7 @@ int RetinaModel::getInference(cv::Mat &image, Grid<float> &output, bool resize, 
         if(!output_tensor[i].IsTensor())
             return EXIT_FAILURE;
         std::vector<int64_t> tensor_dim = output_tensor[i].GetTensorTypeAndShapeInfo().GetShape();
-        std::cout << output_names[i] << ": " << tensor_dim << std::endl;
+        // std::cout << output_names[i] << ": " << tensor_dim << std::endl;
         
         out_tensors.emplace_back(tensor_dim[2], tensor_dim[1]);
         float* data = output_tensor[i].GetTensorMutableData<float>();
@@ -149,7 +173,11 @@ int RetinaModel::getInference(cv::Mat &image, Grid<float> &output, bool resize, 
     }
 
     Config_Data cfg = get_R50_config();
-    output = outputPostProcessing(out_tensors, cfg, det_scale);
+    output = outputPostProcessing(out_tensors, cfg, this->debug, det_scale);
+
+    //ADD THE ALLOCATOR.FREE to FREE THE INPUT AND OUTPUT NAMES!
+    for(auto &name : input_nm) allocator.Free((void*) name);
+    for(auto &name : output_names) allocator.Free((void*) name);
 
     return EXIT_SUCCESS;
 }

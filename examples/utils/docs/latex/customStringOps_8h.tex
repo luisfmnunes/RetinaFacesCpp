@@ -1,0 +1,164 @@
+\hypertarget{customStringOps_8h}{}\doxysection{include/custom\+String\+Ops.h File Reference}
+\label{customStringOps_8h}\index{include/customStringOps.h@{include/customStringOps.h}}
+
+
+A module for string operations.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+Include dependency graph for custom\+String\+Ops.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{customStringOps_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{customStringOps_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{customStringOps_8h_a86f8ad4809257e98c3c638fe3972ae60}{get\+\_\+filename}} (std\+::string path)
+\begin{DoxyCompactList}\small\item\em Extract the filename from a filepath. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{customStringOps_8h_a375bb686bdf81959134cdb261ab1dfd8}{get\+\_\+filedir}} (std\+::string path)
+\begin{DoxyCompactList}\small\item\em Extract the file directory from a filepath. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{customStringOps_8h_ac19048fc76990e583a929e1356d99912}{str\+\_\+split\+\_\+or\+\_\+empty}} (std\+::string input, std\+::string delimiter=\char`\"{} \char`\"{})
+\begin{DoxyCompactList}\small\item\em Splits the string based on a delimiter. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{customStringOps_8h_a7f34b4828b5feaa14ec6a117635c9125}{str\+\_\+split}} (std\+::string input, std\+::string delimiter=\char`\"{} \char`\"{})
+\begin{DoxyCompactList}\small\item\em Splits the string based on a delimiter. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{customStringOps_8h_a83c0e0e9adf4398ca3a60016c90650ea}{str\+\_\+trim}} (std\+::string input)
+\begin{DoxyCompactList}\small\item\em Trim a string on both sides. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{customStringOps_8h_a01c83b66fd03f12d91dd1630d86e197c}\label{customStringOps_8h_a01c83b66fd03f12d91dd1630d86e197c}} 
+bool {\bfseries has\+\_\+extension} (std\+::string path)
+\item 
+\mbox{\Hypertarget{customStringOps_8h_ac83b5fdf001c416e11116f623d316368}\label{customStringOps_8h_ac83b5fdf001c416e11116f623d316368}} 
+bool {\bfseries in\+\_\+quotes} (std\+::string text)
+\item 
+\mbox{\Hypertarget{customStringOps_8h_af376e51afc35f5d5d9073d45bc015c10}\label{customStringOps_8h_af376e51afc35f5d5d9073d45bc015c10}} 
+std\+::string {\bfseries remove\+\_\+quotes} (std\+::string input)
+\item 
+\mbox{\Hypertarget{customStringOps_8h_abc059d4ed808b1702326f5429d93127d}\label{customStringOps_8h_abc059d4ed808b1702326f5429d93127d}} 
+std\+::string {\bfseries remove\+\_\+extension} (std\+::string input)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A module for string operations. 
+
+A header containing functions to perform string operations, returning different structures depending on the operation. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{customStringOps_8h_a375bb686bdf81959134cdb261ab1dfd8}\label{customStringOps_8h_a375bb686bdf81959134cdb261ab1dfd8}} 
+\index{customStringOps.h@{customStringOps.h}!get\_filedir@{get\_filedir}}
+\index{get\_filedir@{get\_filedir}!customStringOps.h@{customStringOps.h}}
+\doxysubsubsection{\texorpdfstring{get\_filedir()}{get\_filedir()}}
+{\footnotesize\ttfamily std\+::string get\+\_\+filedir (\begin{DoxyParamCaption}\item[{std\+::string}]{path }\end{DoxyParamCaption})}
+
+
+
+Extract the file directory from a filepath. 
+
+Receives a path and extract the file directory of the path (The filename can\textquotesingle{}t contain slashes (/) on name)
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & \mbox{[}in\mbox{]} A string containing a filepath\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A substring containing the file directory or empty string if the filepath is a filename 
+\end{DoxyReturn}
+\mbox{\Hypertarget{customStringOps_8h_a86f8ad4809257e98c3c638fe3972ae60}\label{customStringOps_8h_a86f8ad4809257e98c3c638fe3972ae60}} 
+\index{customStringOps.h@{customStringOps.h}!get\_filename@{get\_filename}}
+\index{get\_filename@{get\_filename}!customStringOps.h@{customStringOps.h}}
+\doxysubsubsection{\texorpdfstring{get\_filename()}{get\_filename()}}
+{\footnotesize\ttfamily std\+::string get\+\_\+filename (\begin{DoxyParamCaption}\item[{std\+::string}]{path }\end{DoxyParamCaption})}
+
+
+
+Extract the filename from a filepath. 
+
+Receives a path and extract the filename of the path (The filename can\textquotesingle{}t contain slashes (/) on name)
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & \mbox{[}in\mbox{]} A string containing a filepath\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A substring containing the filename 
+\end{DoxyReturn}
+\mbox{\Hypertarget{customStringOps_8h_a7f34b4828b5feaa14ec6a117635c9125}\label{customStringOps_8h_a7f34b4828b5feaa14ec6a117635c9125}} 
+\index{customStringOps.h@{customStringOps.h}!str\_split@{str\_split}}
+\index{str\_split@{str\_split}!customStringOps.h@{customStringOps.h}}
+\doxysubsubsection{\texorpdfstring{str\_split()}{str\_split()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ str\+\_\+split (\begin{DoxyParamCaption}\item[{std\+::string}]{input,  }\item[{std\+::string}]{delimiter = {\ttfamily \char`\"{}~\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Splits the string based on a delimiter. 
+
+Receives a string possibly containing multiple elements separated by a delimiter
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & \mbox{[}in\mbox{]} A string containing multiple elements separated by a delimiter \\
+\hline
+{\em delimiter} & \mbox{[}in\mbox{]} (default = whitespace) A string defining the spliting delimiter\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector containing multiple elements or vector containing the original string if the delimiter is not found on the input 
+\end{DoxyReturn}
+\mbox{\Hypertarget{customStringOps_8h_ac19048fc76990e583a929e1356d99912}\label{customStringOps_8h_ac19048fc76990e583a929e1356d99912}} 
+\index{customStringOps.h@{customStringOps.h}!str\_split\_or\_empty@{str\_split\_or\_empty}}
+\index{str\_split\_or\_empty@{str\_split\_or\_empty}!customStringOps.h@{customStringOps.h}}
+\doxysubsubsection{\texorpdfstring{str\_split\_or\_empty()}{str\_split\_or\_empty()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ str\+\_\+split\+\_\+or\+\_\+empty (\begin{DoxyParamCaption}\item[{std\+::string}]{input,  }\item[{std\+::string}]{delimiter = {\ttfamily \char`\"{}~\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Splits the string based on a delimiter. 
+
+Receives a string possibly containing multiple elements separated by a delimiter
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & \mbox{[}in\mbox{]} A string containing multiple elements separated by a delimiter \\
+\hline
+{\em delimiter} & \mbox{[}in\mbox{]} (default = whitespace) A string defining the spliting delimiter\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector containing multiple elements or an empty vector if the delimiter is not found on the input 
+\end{DoxyReturn}
+\mbox{\Hypertarget{customStringOps_8h_a83c0e0e9adf4398ca3a60016c90650ea}\label{customStringOps_8h_a83c0e0e9adf4398ca3a60016c90650ea}} 
+\index{customStringOps.h@{customStringOps.h}!str\_trim@{str\_trim}}
+\index{str\_trim@{str\_trim}!customStringOps.h@{customStringOps.h}}
+\doxysubsubsection{\texorpdfstring{str\_trim()}{str\_trim()}}
+{\footnotesize\ttfamily std\+::string str\+\_\+trim (\begin{DoxyParamCaption}\item[{std\+::string}]{input }\end{DoxyParamCaption})}
+
+
+
+Trim a string on both sides. 
+
+Receives a string possibly containing multiple whitespaces at the beginning or end
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & \mbox{[}in\mbox{]} A string which the trimmed version is desired\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string in its trimmed version 
+\end{DoxyReturn}

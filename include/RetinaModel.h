@@ -13,11 +13,12 @@ class RetinaModel{
     private: 
         Ort::Env* env;
         Ort::Session* session;
-        Ort::SessionOptions options;
+        // Ort::SessionOptions options;
 
         std::string model_path;
+        bool debug;
 
-        int _init(Ort::Env* env = NULL, const std::string model_path = "", GraphOptimizationLevel opt_level = ORT_ENABLE_ALL, int threads = 0);
+        int _init(Ort::Env* env = NULL, const std::string model_path = "", bool debug = false, GraphOptimizationLevel opt_level = ORT_ENABLE_ALL, int threads = 0);
 
     public:
 
@@ -32,14 +33,17 @@ class RetinaModel{
         std::map<std::string,std::vector<int64_t>> output_shapes;
 
         RetinaModel();
+        RetinaModel(bool debug);
         RetinaModel(const std::string model_path);
         RetinaModel(Ort::Env* &env, const std::string model_path);
         ~RetinaModel();
 
         int init();
         int init(Ort::Env* &env);
-        int init(const std::string model_path, GraphOptimizationLevel opt_level = ORT_ENABLE_ALL, int threads = 0);
-        int init(Ort::Env* &env, const std::string model_path, GraphOptimizationLevel opt_level = ORT_ENABLE_ALL, int threads = 0);
+        int init(const std::string model_path, bool debug = false, GraphOptimizationLevel opt_level = ORT_ENABLE_ALL, int threads = 0);
+        int init(Ort::Env* &env, const std::string model_path, bool debug = false, GraphOptimizationLevel opt_level = ORT_ENABLE_ALL, int threads = 0);
+
+        void release();
 
         std::string getModelPath();
         void setModelPath(std::string model_path);
@@ -47,7 +51,7 @@ class RetinaModel{
         Ort::Env* getModelEnv();
         void setModelEnv(Ort::Env* &env);
 
-        void setOptions(GraphOptimizationLevel opt_level, int threads = 0);
+        // void setOptions(GraphOptimizationLevel opt_level, int threads = 0);
         int getInference(cv::Mat &image, Grid<float> &output, bool resize = true, size_t img_size = 640);
 
         bool isModelInitialized();

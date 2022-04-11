@@ -1,2 +1,6 @@
 build/*
 *.vscode*
+
+landmarks.txt
+include/facelib_api.h
+lib/libgface.so
