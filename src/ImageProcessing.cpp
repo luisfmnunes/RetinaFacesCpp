@@ -71,14 +71,15 @@ void inputPreProcessing(cv::Mat &im, float &det_scale, bool reshape, int img_siz
         det_scale = (float)(new_height) / (float)(im.rows);
         cv::resize(im, resized_img, cv::Size(new_width,new_height));
         resized_img.copyTo(det_im(cv::Rect(0,0,new_width,new_height)));
-
-#if CV_MAJOR_VERSION < 4
-        im = hwc_to_chw(det_im);
-#else
-        // opencv 4 dnn solution
-        im = cv::dnn::blobFromImage(det_im, 1.0, cv::Size(), cv::Scalar(103,117,123), false, false, CV_32FC3);
-#endif
+        im = det_im;
     }
+#if CV_MAJOR_VERSION < 4
+    im = hwc_to_chw(im);
+#else
+    // opencv 4 dnn solution
+    im = cv::dnn::blobFromImage(det_im, 1.0, cv::Size(), cv::Scalar(103,117,123), false, false, CV_32FC3);
+#endif
+
 
 }
 

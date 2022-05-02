@@ -139,7 +139,7 @@ int RetinaModel::getInference(cv::Mat &image, Grid<float> &output, bool resize, 
     for(int i = 0; i < this->input_count; i++)
         input_nm[i] = this->session->GetInputName(i, allocator);
 
-    size_t data_size = 1.0f;
+    size_t data_size = 1;
     for (auto dim : dims) data_size *= dim;
 
     // same as reinterpreted_cast<const float*>
