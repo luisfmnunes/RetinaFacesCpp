@@ -16,7 +16,7 @@ Bellow are the usage instructions
 If there isn't an intent to provide a custom trained model, the first step consists in extracting the [pretrained model](model/retinaface_dynamic.zip). The following command called from the root path of this repo unzips the model.
 
 ```
-unzip model/retinaface_dynamic.zip
+unzip model/retinaface_dynamic.zip -d model
 ```
 
 ### Compiling the main example
