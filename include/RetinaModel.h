@@ -6,7 +6,6 @@
 #include <map>
 #include <ImageProcessing.h>
 #include <onnx/onnxruntime_cxx_api.h>
-#include <opencv2/opencv.hpp>
 
 class RetinaModel{
 
@@ -34,7 +33,7 @@ class RetinaModel{
 
         RetinaModel();
         RetinaModel(bool debug);
-        RetinaModel(const std::string model_path);
+        RetinaModel(const char* model_path);
         RetinaModel(Ort::Env* &env, const std::string model_path);
         ~RetinaModel();
 

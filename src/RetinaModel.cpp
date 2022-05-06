@@ -4,7 +4,7 @@ RetinaModel::RetinaModel() : env(NULL), session(NULL) {}
 
 RetinaModel::RetinaModel(bool debug) : env(NULL), session(NULL), debug(debug) {} 
 
-RetinaModel::RetinaModel(const std::string model_path) : model_path(model_path), env(NULL), session(NULL){}
+RetinaModel::RetinaModel(const char* model_path) : model_path(model_path), env(NULL), session(NULL){ std::cout << "Model Path" << this->model_path << std::endl; }
 
 RetinaModel::RetinaModel(Ort::Env* &env, const std::string model_path) : env(env), model_path(model_path), session(NULL){}
 
@@ -32,6 +32,8 @@ int RetinaModel::_init(Ort::Env* env, const std::string model_path, bool debug, 
     options.SetInterOpNumThreads(threads);
     options.SetIntraOpNumThreads(threads);
 
+    std::cout << "Defining ONNX Session Options" << std::endl;
+
     this->debug = debug;
 
     if(env == NULL){
@@ -42,30 +44,37 @@ int RetinaModel::_init(Ort::Env* env, const std::string model_path, bool debug, 
         this->env = env;
     }
 
+    std::cout << "Loading ONNX model" << std::endl;
     if(model_path.empty()){
         if(!this->model_path.empty()){
             this->session = new Ort::Session(*(this->env), this->model_path.c_str(), options);
-            if(!this->session) return EXIT_FAILURE;
+            if(!(this->session)) return EXIT_FAILURE;
+        }
+        else{
+            std::cout << "No model path provided" << std::endl;
+            return EXIT_FAILURE;
         }
     } else {
         this->session = new Ort::Session(*(this->env), model_path.c_str(), options);
-        if(!this->session) return EXIT_FAILURE;
+        if(!(this->session)) return EXIT_FAILURE;
     }
 
-    this->input_count = session->GetInputCount();
-    this->output_count = session->GetOutputCount();
+    std::cout << "Getting Model Input/Output Info" << std::endl;
+    this->input_count = this->session->GetInputCount();
+    this->output_count = this->session->GetOutputCount();
 
     for(int i = 0; i < this->input_count; i++){
-        const char* input = this->session->GetInputName(i, allocator);
-        this->input_names.emplace_back(input);
+        char* input = this->session->GetInputName(i, allocator);
+        this->input_names.push_back(input);
         allocator.Free((void*) input);
     }
 
     for(int i = 0; i < this->output_count; i++){
-        const char* output = this->session->GetOutputName(i, allocator);
-        this->output_names.emplace_back(output);
+        char* output = this->session->GetOutputName(i, allocator);
+        this->output_names.push_back(output);
         allocator.Free((void*) output);
     }
+
 
     if(this->input_names.size() != this->input_count || this->output_names.size() != this->output_count) return EXIT_FAILURE;
 
@@ -81,6 +90,7 @@ int RetinaModel::_init(Ort::Env* env, const std::string model_path, bool debug, 
         this->output_shapes.emplace(name, this->session->GetOutputTypeInfo(idx).GetTensorTypeAndShapeInfo().GetShape());
     }
 
+    std::cout << "Releasing Threading Options" << std::endl;
     Ort::GetApi().ReleaseThreadingOptions(thOpts);
 
     return EXIT_SUCCESS;
@@ -117,7 +127,7 @@ void RetinaModel::setModelPath(std::string model_path){ this->model_path = model
 // }
 
 int RetinaModel::getInference(cv::Mat &image, Grid<float> &output, bool resize, size_t img_size){
-    float det_scale = 0.0f;
+    float det_scale = 1.0f;
     cv::Mat input(image);
 
     if(!env || !session)
@@ -126,14 +136,15 @@ int RetinaModel::getInference(cv::Mat &image, Grid<float> &output, bool resize, 
     Ort::AllocatorWithDefaultOptions allocator;
     auto memory_info = Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
 
+    if(image.cols <= 640 && image.rows <= 640) resize = false;
     inputPreProcessing(input, det_scale, resize, img_size);
 
     std::vector<int64_t> dims(this->input_shapes[this->input_names[0]]);
     dims[0] = 1;
-    dims[2] = input.rows;
-    dims[3] = input.cols;
+    dims[2] = resize ? img_size : image.rows;
+    dims[3] = resize ? img_size : image.cols;
 
-    // std::cout << dims << std::endl;
+    std::cout << "Input Dims: " << dims << std::endl;
 
     std::vector<const char*> input_nm(this->input_count);
     for(int i = 0; i < this->input_count; i++)
@@ -173,7 +184,7 @@ int RetinaModel::getInference(cv::Mat &image, Grid<float> &output, bool resize, 
     }
 
     Config_Data cfg = get_R50_config();
-    output = outputPostProcessing(out_tensors, cfg, this->debug, det_scale);
+    output = outputPostProcessing(out_tensors, cfg, this->debug, det_scale, cv::Size(dims[3],dims[2]));
 
     //ADD THE ALLOCATOR.FREE to FREE THE INPUT AND OUTPUT NAMES!
     for(auto &name : input_nm) allocator.Free((void*) name);

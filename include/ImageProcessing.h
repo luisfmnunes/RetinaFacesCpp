@@ -2,7 +2,7 @@
 #define IMAGE_PROCESSING_H
 
 #include<fstream>
-#include<opencv2/opencv.hpp>
+#include<opencv4/opencv2/opencv.hpp>
 #include<onnx/onnxruntime_cxx_api.h>
 #include<Grid.h>
 #include<Config.h>

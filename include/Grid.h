@@ -310,6 +310,16 @@ class Grid{
             }
         }
 
+        void mul(Grid<T> rhs){
+            if(c != rhs.cols() && rhs.rows() != 1)
+                throw "Not a vector or vector columns diverge from Grid";
+            for(uint y = 0; y < r; y++){
+                for(uint x = 0; x < c; x++){
+                    this->setPos(x,y,_data[y*c+x]*rhs(x,0));
+                }
+            }
+        }
+
         void setPos(uint x, uint y, T value){
             if(x+y*c > _data.size())
                 throw "Out of range index in setPos";

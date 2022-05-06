@@ -48,9 +48,10 @@ static std::ostream& operator<<(std::ostream& os, const std::vector<int> &v){
 
 void inputPreProcessing(cv::Mat &im, float &det_scale, bool reshape, int img_size){
 
-#if CV_MAJOR_VERSION > 3
-    // not required if using opencv 4
     im.convertTo(im, CV_32FC3);
+
+#if CV_MAJOR_VERSION < 4
+    // not required if using opencv 4
     im -= cv::Scalar(103, 117, 123);
 #endif
 
@@ -77,7 +78,8 @@ void inputPreProcessing(cv::Mat &im, float &det_scale, bool reshape, int img_siz
     im = hwc_to_chw(im);
 #else
     // opencv 4 dnn solution
-    im = cv::dnn::blobFromImage(det_im, 1.0, cv::Size(), cv::Scalar(103,117,123), false, false, CV_32FC3);
+    im.convertTo(im, CV_8U);
+    im = cv::dnn::blobFromImage(im, 1.0, cv::Size(), cv::Scalar(103,117,123), false, false, CV_32F);
 #endif
 
 
@@ -174,16 +176,16 @@ template<typename T> Grid<T> anchors_grid(Config_Data cfg, cv::Size image_size){
     for(size_t i = 0; i < 3; i++){
         std::vector<int> min_sz = cfg.min_sizes[i];
         
-        int fy = image_size.height/cfg.steps[i];
-        int fx = image_size.width/cfg.steps[i];
+        int fy = std::ceil(image_size.height/cfg.steps[i]);
+        int fx = std::ceil(image_size.width/cfg.steps[i]);
 
-        for(size_t x = 0; x < fx; x++){
-            for(size_t y = 0; y < fy; y++){
+        for(size_t y = 0; y < fy; y++){
+            for(size_t x = 0; x < fx; x++){
                 for(size_t s = 0; s < min_sz.size(); s++){
                     float s_kx = ((float) min_sz[s])/((float) image_size.width);
                     float s_ky = ((float) min_sz[s])/((float) image_size.height);
-                    float dense_cx = (y + 0.5) * cfg.steps[i]/image_size.width;
-                    float dense_cy = (x + 0.5) * cfg.steps[i]/image_size.height;
+                    float dense_cx = (x + 0.5) * cfg.steps[i]/image_size.width;
+                    float dense_cy = (y + 0.5) * cfg.steps[i]/image_size.height;
                     
                     anchors.push_back(dense_cx);
                     anchors.push_back(dense_cy);
@@ -211,15 +213,31 @@ Grid<float> outputPostProcessing(std::vector<Grid<float>>tensors, Config_Data cf
     Grid<float> boxes = decode(tensors[0], anchors, cfg);
     if(image_size.height == image_size.width)
         boxes *= image_size.height;
-    else
-        throw "Not Yet Implemented";
+    else{
+        float w = static_cast<float>(image_size.width);
+        float h = static_cast<float>(image_size.height);
+        std::vector<float> scale({w,h,w,h});
+        Grid<float> sgrid(4,1);
+        sgrid.setData(scale.data(),4);
+        boxes.mul(sgrid);
+    }
 
     Grid<float> scores = tensors[1].getIntervalSubset(gridPoint(1,0), gridPoint(-1,-1));
 
     Grid<float> landmarks = decode_landmarks(tensors[2], anchors, cfg);
 
+    // std::cout << anchors << std::endl << boxes << std::endl << scores << std::endl << landmarks << std::endl;
+
     if(image_size.height == image_size.width)
         landmarks *= image_size.height;
+    else{
+        float w = static_cast<float>(image_size.width);
+        float h = static_cast<float>(image_size.height);
+        std::vector<float> scale({w,h,w,h,w,h,w,h,w,h});
+        Grid<float> sgrid(10,1);
+        sgrid.setData(scale.data(),10);
+        landmarks.mul(sgrid);
+    }
 
     // std::ofstream os("landmarks.txt");
     // os << landmarks.print();

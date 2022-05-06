@@ -25,22 +25,27 @@ void drawLandmarks(cv::Mat &image, Grid<float> grid){
 }
 
 int main(int argc, char** argv) {
-    RetinaModel model("model/retinaface_dynamic.onnx");
+    cout << "Instantiating Model Object" << endl;
+    RetinaModel model("../model/retinaface_dynamic.onnx");
     string image_path;
     float scale = 0.0;
     cv::Mat im;
 
+    cout << "Initializing RetinaFace Model" << endl;
     model.init();
+    std::cout << model << std::endl;
+    
 
     if(argc < 2){
         cerr << "Insufficient Arguments" << endl;
         return EXIT_FAILURE;
     }
     
+    cout << "Reading Image: " << argv[1] << endl;
     image_path = argv[1];
     im = cv::imread(image_path);
 
-    cout << model << endl;
+    // cout << model << endl;
 
     Grid<float> outputs;
     model.getInference(im, outputs);
